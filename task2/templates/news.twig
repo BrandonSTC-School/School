@@ -1,0 +1,57 @@
+{% extends "base.twig" %}
+{% block title %}Astro News{% endblock %}
+
+{% block content %}
+<h2>🪐 Space & Astronomy News</h2>
+
+{# ✅ Filter Form #}
+<form method="GET" action="news.php" style="margin-bottom: 2rem;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 0.5fr; gap: 0.8rem;">
+        <input type="text" name="search" placeholder="Search articles..." value="{{ search }}">
+        
+        <select name="publisher">
+            <option value="">All Sources</option>
+            <option value="NASA" {% if publisher == 'NASA' %}selected{% endif %}>NASA</option>
+            <option value="SpaceX" {% if publisher == 'SpaceX' %}selected{% endif %}>SpaceX</option>
+            <option value="ESA" {% if publisher == 'ESA' %}selected{% endif %}>ESA</option>
+            <option value="RocketLab" {% if publisher == 'RocketLab' %}selected{% endif %}>Rocket Lab</option>
+        </select>
+
+        <select name="period">
+            <option value="day" {% if period == 'day' %}selected{% endif %}>Last 24h</option>
+            <option value="week" {% if period == 'week' %}selected{% endif %}>Last 7 Days</option>
+            <option value="month" {% if period == 'month' %}selected{% endif %}>Last 30 Days</option>
+        </select>
+
+        <button class="btn btn-primary" style="width:auto;">Apply</button>
+    </div>
+</form>
+
+{% if error %}
+    <p class="error">{{ error }}</p>
+{% endif %}
+
+{% if articles|length == 0 %}
+    <p style="text-align:center; color: var(--text-muted); margin-top: 2rem;">
+        No articles found matching your filters.
+    </p>
+{% else %}
+    <div class="gallery-grid">
+        {% for article in articles %}
+        <div class="news-card">
+            {% if article.image_url %}
+                <img src="{{ article.image_url }}" alt="{{ article.title }}">
+            {% endif %}
+            <h3>{{ article.title }}</h3>
+            <p class="news-date">{{ article.published_at|date("Y-m-d") }}</p>
+            <p>{{ article.summary|slice(0, 150) }}...</p>
+            <a href="{{ article.url }}" target="_blank" class="btn btn-secondary" style="margin-top:10px;">
+                🔗 Read More
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<a href="/task2/dashboard.php" class="btn btn-secondary" style="margin-top:2rem;">⬅ Back to Dashboard</a>
+{% endblock %}

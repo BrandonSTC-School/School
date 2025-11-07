@@ -1,0 +1,65 @@
+{% extends "base.twig" %}
+{% block title %}Gallery{% endblock %}
+
+{% block content %}
+<h2>AstroGallery</h2>
+
+{% if error %}
+    <p class="error">{{ error }}</p>
+{% endif %}
+{% if success %}
+    <p class="success">{{ success }}</p>
+{% endif %}
+
+{# 🛰 Upload Form #}
+<form method="POST" enctype="multipart/form-data" style="margin-bottom: 2rem;">
+    <input type="text" name="title" placeholder="Enter image title..." required>
+    <div class="file-upload">
+        <input type="file" id="image" name="image" accept="image/*" required>
+        <label for="image" class="btn btn-secondary">📸 Choose Image</label>
+        <span id="file-name">No file chosen</span>
+    </div>
+    <button type="submit" name="saveBase64" class="btn btn-primary">🚀 Upload Image</button>
+</form>
+
+<a href="galleryHidden.php" class="btn btn-secondary">📂 View Hidden Images</a>
+
+<hr>
+
+<h3>Search & Sort</h3>
+<form method="GET" action="gallery.php">
+    <input name="search" placeholder="Search by title..." value="{{ search }}">
+    <select name="sort">
+        <option value="newest" {% if sort == 'newest' %}selected{% endif %}>Newest First</option>
+        <option value="oldest" {% if sort == 'oldest' %}selected{% endif %}>Oldest First</option>
+        <option value="title_asc" {% if sort == 'title_asc' %}selected{% endif %}>Title A-Z</option>
+        <option value="title_desc" {% if sort == 'title_desc' %}selected{% endif %}>Title Z-A</option>
+    </select>
+    <button class="btn btn-primary">Apply</button>
+    <a href="gallery.php" class="btn btn-secondary">Reset</a>
+</form>
+
+<hr>
+
+<h3>Your Images</h3>
+
+<ul class="gallery-grid">
+    {% if images|length == 0 %}
+        <p style="text-align:center; color: var(--text-muted); margin-top: 2rem;">
+            No images uploaded yet.
+        </p>
+    {% else %}
+        {% for img in images %}
+        <li>
+            <strong>{{ img.title }}</strong>
+            <img src="/task2/{{ img.filePath }}" alt="{{ img.title }}">
+            {% if img.userId == user_id %}
+                <a href="gallery.php?hide={{ img.id }}" class="btn btn-danger">Hide</a>
+            {% endif %}
+        </li>
+        {% endfor %}
+    {% endif %}
+</ul>
+
+<a href="../dashboard.php" class="btn btn-secondary">⬅ Back to Dashboard</a>
+{% endblock %}
