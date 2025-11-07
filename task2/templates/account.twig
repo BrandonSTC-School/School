@@ -1,0 +1,32 @@
+{% extends "base.twig" %}
+
+{% block title %}My Account - AstroGallery{% endblock %}
+
+{% block content %}
+<div class="auth-card">
+    <h2>Account Profile</h2>
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    {% if success %}
+        <p class="success">{{ success }}</p>
+    {% endif %}
+
+    <form action="account.php" method="POST">
+        <input type="text" name="name" value="{{ user.name }}" placeholder="First Name" required>
+        <input type="text" name="surname" value="{{ user.surname }}" placeholder="Last Name" required>
+        <input type="email" name="eMail" value="{{ user.eMail }}" placeholder="Email" required>
+
+        <input type="password" name="password" placeholder="New Password (optional)">
+
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
+
+    <div class="auth-links">
+        <a href="/task2/dashboard.php" class="btn btn-secondary">⬅ Back to Dashboard</a>
+        <a href="/task2/phps/logout.php" class="btn btn-secondary">🚪 Logout</a>
+    </div>
+</div>
+{% endblock %}
