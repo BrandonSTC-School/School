@@ -74,8 +74,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     // Flash success message and redirect (PRG)
                     $_SESSION['success_message'] = "✅ Image uploaded successfully!";
-                    header("Location: gallery.php");
+                    header("Location: " . $_SERVER['REQUEST_URI'] . "?t=" . time());
                     exit;
+
 
                 } catch (Exception $e) {
                     $error = "Database error: " . $e->getMessage();

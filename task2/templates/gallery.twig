@@ -11,14 +11,19 @@
     <p class="success">{{ success }}</p>
 {% endif %}
 
-{# ✅ Upload Form #}
+{# 🛰 Upload Form #}
 <form method="POST" enctype="multipart/form-data" style="margin-bottom: 2rem;">
     <input type="text" name="title" placeholder="Enter image title..." required>
-    <input type="file" name="image" accept="image/*" required>
+    <div class="file-upload">
+        <input type="file" id="image" name="image" accept="image/*" required>
+        <label for="image" class="btn btn-secondary">📸 Choose Image</label>
+        <span id="file-name">No file chosen</span>
+    </div>
     <button type="submit" name="saveBase64" class="btn btn-primary">🚀 Upload Image</button>
 </form>
 
 <a href="galleryHidden.php" class="btn btn-secondary">📂 View Hidden Images</a>
+
 <hr>
 
 <h3>Search & Sort</h3>
@@ -35,20 +40,25 @@
 </form>
 
 <hr>
+
 <h3>Your Images</h3>
 
 <ul class="gallery-grid">
-{% for img in images %}
-<li>
-    <strong>{{ img.title }}</strong><br>
-    <img src="/task2/{{ img.filePath }}" alt="{{ img.title }}">
-    {% if img.userId == user_id %}
-    <a href="gallery.php?hide={{ img.id }}" class="btn btn-danger" style="margin-top: 8px;">Hide</a>
+    {% if images|length == 0 %}
+        <p style="text-align:center; color: var(--text-muted); margin-top: 2rem;">
+            No images uploaded yet.
+        </p>
+    {% else %}
+        {% for img in images %}
+        <li>
+            <strong>{{ img.title }}</strong>
+            <img src="/task2/{{ img.filePath }}" alt="{{ img.title }}">
+            {% if img.userId == user_id %}
+                <a href="gallery.php?hide={{ img.id }}" class="btn btn-danger">Hide</a>
+            {% endif %}
+        </li>
+        {% endfor %}
     {% endif %}
-</li>
-{% else %}
-    <p style="text-align:center; color: var(--text-muted); margin-top: 2rem;">No images uploaded yet.</p>
-{% endfor %}
 </ul>
 
 <a href="../dashboard.php" class="btn btn-secondary">⬅ Back to Dashboard</a>
