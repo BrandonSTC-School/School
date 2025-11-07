@@ -1,45 +1,19 @@
-<!DOCTYPE html>
-<html>
-<body>
-
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "GameDB";
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+// Load Twig configuration (template engine setup)
+require_once 'phps/config.php';
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+// Load database connection (not used here yet but required for future logic)
+require_once 'phps/dbConnection.php';
 
-$sql = "SELECT * FROM Games";
-$result = $conn->query($sql);
+// --------------------------------------------------
+// Entry point of the site (homepage)
+// Future: this can route to login/dashboard if user is logged in
+// --------------------------------------------------
 
-if ($result->num_rows > 0) {
-    // Output data of each row
-    echo "<table border='1' cellpadding='5' cellspacing='0'>";
-    echo "<tr><th>ID</th><th>Title</th><th>Genre</th><th>Rating</th><th>Price $</th></tr>";
-
-    while($row = $result->fetch_assoc()) {
-        echo "<tr>";
-        echo "<td>" . $row["GameId"] . "</td>";
-        echo "<td>" . $row["Name"] . "</td>";
-        echo "<td>" . $row["Genre"] . "</td>";
-        echo "<td>" . $row["Rating"] . "</td>";
-        echo "<td>" . $row["Price"] . "</td>";
-        echo "</tr>";
-    }
-    echo "</table>";
-} else {
-    echo "No games found.";
-}
-
-$conn->close();
+// Render landing/welcome page using Twig template engine
+echo $twig->render('welcome.twig', [
+    'title'   => 'Welcome to AstroGallery',        // Page heading text
+    'message' => 'Explore the cosmos through our community gallery!' // Subtitle text
+]);
 ?>
-
-</body>
-</html>
