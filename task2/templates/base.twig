@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}AstroGallery{% endblock %}</title>
+
+    <link rel="stylesheet" href="/task2/assets/css/style.css">
+</head>
+
+<body>
+
+{% if not is_logged_in %}
+<div class="top-home-wrapper">
+    <a href="/task2/index.php" class="top-home-btn">🏠 Home</a>
+</div>
+{% endif %}
+
+<div class="container">
+    {% block content %}{% endblock %}
+</div>
+
+</body>
+</html>

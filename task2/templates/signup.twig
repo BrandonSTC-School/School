@@ -1,0 +1,27 @@
+{% extends "base.twig" %}
+{% block title %}Sign Up - AstroGallery{% endblock %}
+
+{% block content %}
+<div class="auth-card">
+    <h2>Create Account</h2>
+
+    {% if error %}<p class="error">{{ error }}</p>{% endif %}
+    {% if success %}<p class="success">{{ success }}</p>{% endif %}
+
+    <form method="POST" action="/task2/phps/signup.php">
+        <input type="text" name="name" placeholder="First Name" required>
+        <input type="text" name="surname" placeholder="Last Name" required>
+        <input type="email" name="eMail" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <input type="text" name="secret_question" placeholder="Secret Question" required>
+        <input type="password" name="secret_answer" placeholder="Answer to Secret Question" required>
+
+        <button type="submit" class="btn btn-primary">Sign Up</button>
+    </form>
+
+    <div class="auth-links">
+        <a href="/task2/phps/login.php" class="btn btn-secondary">Already have an account?</a>
+    </div>
+
+</div>
+{% endblock %}
