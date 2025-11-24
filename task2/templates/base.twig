@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/task2/assets/css/style.css">
 </head>
 
-<body>
+<body class="{% block body_class %}{% endblock %}">
 
 {% if not is_logged_in %}
 <div class="top-home-wrapper">
