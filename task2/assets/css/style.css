@@ -30,13 +30,41 @@ body {
     text-align: center; /* Center all general content */
 }
 
+/* ✅ Background images */
+body.welcome-page {
+    background: url('/task2/assets/images/welcomeBG.webp') no-repeat center center fixed;
+    background-size: cover;
+}
+
+body.login-page {
+    background: url('/task2/assets/images/loginBG.webp') no-repeat center center fixed;
+    background-size: cover;
+}
+
+body.signin-page {
+    background: url('/task2/assets/images/signinBG.webp') no-repeat center center fixed;
+    background-size: cover;
+}
+
+body.account-page {
+    background: url('/task2/assets/images/accountBG.webp') no-repeat center center fixed;
+    background-size: cover;
+}
+
+body.dashboard-page {
+    background: url('/task2/assets/images/dashboardBG.webp') no-repeat center center fixed;
+    background-size: cover;
+}
+
 .container {
     max-width: 1000px;
     margin: 0 auto;
     padding: 1rem;
-    background: var(--bg-card);
-    border-radius: 8px;
-    border: 1px solid #222;
+    background: rgba(17, 17, 17, 0.55);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 /* HEADINGS */
@@ -248,14 +276,17 @@ p.success { color: var(--success); }
 ──────────────────────────────── */
 
 .auth-card {
-    background: #111;
-    border: 1px solid #222;
+    background: rgba(17, 17, 17, 0.55);   /* semi-transparent */
+    border: 1px solid rgba(255, 255, 255, 0.12);
     padding: 2rem;
     max-width: 420px;
     margin: 5vh auto;
-    border-radius: 10px;
+    border-radius: 12px;
     text-align: center;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
+
 .auth-card form input,
 .auth-card form button {
     margin-top: 10px;
@@ -295,6 +326,24 @@ p.success { color: var(--success); }
     display: flex;
     justify-content: center;
     gap: 1rem;
+}
+
+/* ✅ Semi-transparent overlay for welcome card */
+.welcome-overlay {
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    padding: 2rem;
+    border-radius: 12px;
+    display: inline-block;
+}
+
+/* Fix horizontal buttons on welcome page */
+.welcome-card .button-row .btn {
+    width: auto !important;
+    min-width: 140px;   /* nice size */
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
 }
 
 /* ────────────────────────────────
@@ -434,4 +483,4 @@ form[action*="news.php"] {
 #file-name.active {
     opacity: 1;
     color: var(--accent-soft);
-}
+}   

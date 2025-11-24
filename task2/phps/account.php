@@ -18,15 +18,15 @@ $user = $stmt->fetch();
 
 // Prepare variables for feedback messages
 $message = '';
-$error = '';
+$error   = '';
 
 // Check if form was submitted (POST request)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Get submitted form values, trim to remove extra spaces
-    $name = trim($_POST['name'] ?? '');
-    $surname = trim($_POST['surname'] ?? '');
-    $email = trim($_POST['eMail'] ?? '');
+    $name     = trim($_POST['name']  ?? '');
+    $surname  = trim($_POST['surname'] ?? '');
+    $email    = trim($_POST['eMail'] ?? '');
     $password = $_POST['password'] ?? ''; // Password may be empty
 
     // Validate required fields (password optional)
@@ -48,6 +48,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $error = 'Email already in use.';
         } else {
 
+            // Flag to track if update actually succeeded
+            $updatedOk = false;
+
             // If password field was filled, validate complexity & update
             if ($password !== '') {
 
@@ -61,30 +64,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $hashed = password_hash($password, PASSWORD_DEFAULT);
 
                     // Update all fields including password
-                    $update = $pdo->prepare("UPDATE user SET name=?, surname=?, eMail=?, password=? WHERE id=?");
+                    $update = $pdo->prepare("UPDATE user SET name = ?, surname = ?, eMail = ?, password = ? WHERE id = ?");
                     $update->execute([$name, $surname, $email, $hashed, $_SESSION['user_id']]);
 
-                    $message = "Account updated successfully!";
+                    $message   = "Account updated successfully!";
+                    $updatedOk = true;
                 }
 
             // If password left empty, update all fields except password
             } else {
-                $update = $pdo->prepare("UPDATE user SET name=?, surname=?, eMail=? WHERE id=?");
+                $update = $pdo->prepare("UPDATE user SET name = ?, surname = ?, eMail = ? WHERE id = ?");
                 $update->execute([$name, $surname, $email, $_SESSION['user_id']]);
 
-                $message = "Account updated successfully!";
+                $message   = "Account updated successfully!";
+                $updatedOk = true;
             }
 
-            // Update $user array so new data is shown in form immediately
-            $user = ['name' => $name, 'surname' => $surname, 'eMail' => $email];
+            if ($updatedOk) {
+                // ✅ Keep the session in sync with the database so dashboard shows new info immediately
+                $_SESSION['user_name']    = $name;
+                $_SESSION['user_surname'] = $surname;
+                $_SESSION['user_email']   = $email;
+
+                // Update $user array so new data is shown in the form immediately
+                $user = [
+                    'name'    => $name,
+                    'surname' => $surname,
+                    'eMail'   => $email
+                ];
+            }
         }
     }
 }
 
 // Render Twig template and pass variables to it
 echo $twig->render('account.twig', [
-    'user' => $user, // Current user data
-    'success' => $message, // Success message if any
-    'error' => $error // Error message if any
+    'user'    => $user,     // Current user data
+    'success' => $message,  // Success message if any
+    'error'   => $error     // Error message if any
 ]);
 ?>
