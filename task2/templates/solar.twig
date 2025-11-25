@@ -1,0 +1,112 @@
+{% extends "base.twig" %}
+{% block title %}Solar System — AstroGallery{% endblock %}
+{% block body_class %}solar-page{% endblock %}
+
+{% block content %}
+
+<div class="solar-landing">
+
+    <!-- WRAPPER FOR PROPER CENTERED SCALING -->
+    <div class="solar-visual-wrapper">
+
+        <!-- SOLAR SYSTEM -->
+        <div class="solar-visual">
+
+            <!-- SUN -->
+            <div class="sun" data-tip="Sun — Our system’s star"></div>
+
+            <!-- MERCURY -->
+            <div class="planet-orbit mercury" data-tip="Mercury — Fastest orbiting planet">
+                <div class="orbit-circle"></div>
+                <div class="planet"></div>
+            </div>
+
+            <!-- VENUS -->
+            <div class="planet-orbit venus" data-tip="Venus — Earth’s toxic twin">
+                <div class="orbit-circle"></div>
+                <div class="planet"></div>
+            </div>
+
+            <!-- EARTH -->
+            <div class="planet-orbit earth" data-tip="Earth — Our home">
+                <div class="orbit-circle"></div>
+                <div class="planet"></div>
+
+                <div class="moon-orbit moon-orbit-earth" data-tip="Moon — Earth’s companion">
+                    <div class="moon"></div>
+                </div>
+            </div>
+
+            <!-- MARS -->
+            <div class="planet-orbit mars" data-tip="Mars — The Red Planet">
+                <div class="orbit-circle"></div>
+                <div class="planet"></div>
+
+                <div class="moon-orbit moon-orbit-mars-1" data-tip="Phobos — Inner moon"><div class="moon"></div></div>
+                <div class="moon-orbit moon-orbit-mars-2" data-tip="Deimos — Outer moon"><div class="moon"></div></div>
+            </div>
+
+            <!-- JUPITER -->
+            <div class="planet-orbit jupiter" data-tip="Jupiter — Largest planet">
+                <div class="orbit-circle"></div>
+                <div class="planet"></div>
+
+                <div class="moon-orbit moon-orbit-j-1" data-tip="Io — Volcanic moon"><div class="moon"></div></div>
+                <div class="moon-orbit moon-orbit-j-2" data-tip="Europa — Icy ocean world"><div class="moon"></div></div>
+                <div class="moon-orbit moon-orbit-j-3" data-tip="Ganymede — Largest moon"><div class="moon"></div></div>
+                <div class="moon-orbit moon-orbit-j-4" data-tip="Callisto — Ancient surface"><div class="moon"></div></div>
+            </div>
+
+            <!-- SATURN -->
+            <div class="planet-orbit saturn" data-tip="Saturn — Ringed giant">
+                <div class="orbit-circle"></div>
+                <div class="planet"></div>
+                <div class="saturn-ring"></div>
+
+                <div class="moon-orbit moon-orbit-s-1" data-tip="Titan — Thick atmosphere"><div class="moon"></div></div>
+                <div class="moon-orbit moon-orbit-s-2" data-tip="Enceladus — Icy geysers"><div class="moon"></div></div>
+                <div class="moon-orbit moon-orbit-s-3" data-tip="Saturn moon"><div class="moon"></div></div>
+                <div class="moon-orbit moon-orbit-s-4" data-tip="Rhea — Bright icy moon"><div class="moon"></div></div>
+                <div class="moon-orbit moon-orbit-s-5" data-tip="Dione — Cratered moon"><div class="moon"></div></div>
+            </div>
+
+            <!-- URANUS -->
+            <div class="planet-orbit uranus" data-tip="Uranus — Tilted ice giant">
+                <div class="orbit-circle"></div>
+                <div class="planet"></div>
+
+                <div class="moon-orbit moon-orbit-u-1" data-tip="Miranda — Patchwork moon"><div class="moon"></div></div>
+                <div class="moon-orbit moon-orbit-u-2" data-tip="Ariel — Bright moon"><div class="moon"></div></div>
+            </div>
+
+            <!-- NEPTUNE -->
+            <div class="planet-orbit neptune" data-tip="Neptune — Fastest winds">
+                <div class="orbit-circle"></div>
+                <div class="planet"></div>
+
+                <div class="moon-orbit moon-orbit-n-1" data-tip="Triton — Retrograde moon"><div class="moon"></div></div>
+            </div>
+
+        </div> <!-- END .solar-visual -->
+
+    </div> <!-- END WRAPPER -->
+
+    <!-- GLOBAL TOOLTIP -->
+    <div id="global-tooltip">Hover over something…</div>
+
+    <!-- INFO PANEL -->
+    <div class="solar-info">
+        <h1>🪐 Explore Our Solar System</h1>
+        <p class="subtitle">
+            Hover planets and moons to learn a quick fact.<br>
+            Their motion pauses while you inspect them.
+        </p>
+
+        <a href="/task2/phps/welcome.php" class="btn btn-primary solar-enter-btn">
+            🚀 Enter AstroGallery
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}
