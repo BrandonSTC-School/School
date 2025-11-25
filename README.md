@@ -1,4 +1,6 @@
 ### Added
+25/11/2025 - New landing page, solar system, interactable with text for details, updated CSS to help with scalability 
+### Added
 24/11/2025 - New background images, updates twigs with new body class
 ### Added
 7/11/2025 - Updated Gallery to string from base64, Logic fixed to allow proper uploads and session refresh, News section created, API data gets cached so we dont call API everytime we open news ,Search criteria added to news

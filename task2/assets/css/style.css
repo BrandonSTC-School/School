@@ -27,10 +27,11 @@ body {
     color: var(--text-main);
     line-height: 1.6;
     padding: 1rem;
-    text-align: center; /* Center all general content */
+    text-align: center;
 }
 
 /* ✅ Background images */
+
 body.welcome-page {
     background: url('/task2/assets/images/welcomeBG.webp') no-repeat center center fixed;
     background-size: cover;
@@ -83,7 +84,7 @@ input, select {
     color: var(--text-main);
     border: 1px solid #222;
     border-radius: 6px;
-    text-align: center; /* Center placeholder + text */
+    text-align: center;
 }
 
 /* BUTTON SYSTEM */
@@ -100,7 +101,7 @@ input, select {
     transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
     font-size: 1rem;
     will-change: transform, box-shadow;
-    backface-visibility: hidden; /* fix text flicker */
+    backface-visibility: hidden;
     transform: translateZ(0);
 }
 
@@ -179,6 +180,12 @@ button {
     color: #111;
 }
 
+@media (max-width: 600px) {
+    body { padding: .5rem; }
+    h1, h2 { font-size: 1.4rem; }
+    .gallery-grid img { height: 280px; }
+}
+
 /* ────────────────────────────────
    GALLERY
 ──────────────────────────────── */
@@ -190,10 +197,9 @@ button {
     list-style: none;
     padding: 0;
     margin-top: 1.5rem;
-    justify-items: center; /* center grid items */
+    justify-items: center;
 }
 
-/* Gallery cards */
 .gallery-grid li {
     background: var(--bg-card);
     border: 1px solid #222;
@@ -209,7 +215,6 @@ button {
     box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
 }
 
-/* Image cards (portrait layout, show full image) */
 .gallery-grid img {
     width: 100%;
     height: 350px;
@@ -226,7 +231,6 @@ button {
     box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
 }
 
-/* Titles & Buttons */
 .gallery-grid strong {
     display: block;
     margin-bottom: 0.5rem;
@@ -265,18 +269,12 @@ hr {
 p.error { color: var(--error); }
 p.success { color: var(--success); }
 
-@media (max-width: 600px) {
-    body { padding: .5rem; }
-    h1, h2 { font-size: 1.4rem; }
-    .gallery-grid img { height: 280px; }
-}
-
 /* ────────────────────────────────
    AUTH / DASHBOARD
 ──────────────────────────────── */
 
 .auth-card {
-    background: rgba(17, 17, 17, 0.55);   /* semi-transparent */
+    background: rgba(17, 17, 17, 0.55);
     border: 1px solid rgba(255, 255, 255, 0.12);
     padding: 2rem;
     max-width: 420px;
@@ -341,7 +339,7 @@ p.success { color: var(--success); }
 /* Fix horizontal buttons on welcome page */
 .welcome-card .button-row .btn {
     width: auto !important;
-    min-width: 140px;   /* nice size */
+    min-width: 140px;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
 }
@@ -483,4 +481,280 @@ form[action*="news.php"] {
 #file-name.active {
     opacity: 1;
     color: var(--accent-soft);
-}   
+}
+
+/* ────────────────────────────────
+   SOLAR SYSTEM LANDING
+──────────────────────────────── */
+
+body.solar-page .top-home-wrapper { display: none; }
+
+body.solar-page .container {
+    max-width: 1100px;
+    min-height: 100vh;
+    padding: 2rem 2rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at top, #151515 0%, #050505 60%, #020202 100%);
+    border-radius: 16px;
+    border: 1px solid #222;
+    backdrop-filter: blur(8px);
+}
+
+.solar-landing {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.8rem;
+}
+
+/* MAIN VISUAL */
+.solar-visual {
+    position: relative;
+    width: 1000px;
+    height: 1000px;
+    margin: 0 auto;
+}
+
+.solar-visual-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: visible;
+}
+
+@media (max-width: 650px) {
+    .solar-visual {
+        width: 420px;
+        height: 420px;
+    }
+}
+
+/* ───────────────────────────────
+   BASE OBJECTS
+──────────────────────────────── */
+
+.planet-orbit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    animation: orbit-spin linear infinite;
+    pointer-events: none;
+}
+
+.orbit-circle {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.10);
+    pointer-events: none;
+}
+
+/* Planet dot */
+.planet {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(-50%, -50%);
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    cursor: pointer;
+    pointer-events: auto;
+    box-shadow: 0 0 6px rgba(255,255,255,.8);
+}
+
+/* Sun */
+.sun {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    cursor: pointer;
+    pointer-events: auto;
+    background: radial-gradient(circle, #ffd15c 0%, #ff9100 50%, #b33b00 80%);
+    box-shadow: 0 0 55px rgba(255,150,0,.9);
+}
+
+/* ───────────────────────────────
+   HOVER FREEZE (JS toggles class)
+──────────────────────────────── */
+
+.solar-visual.solar-paused .planet-orbit,
+.solar-visual.solar-paused .moon-orbit {
+    animation-play-state: paused !important;
+}
+
+/* GLOBAL TOOLTIP BELOW SOLAR SYSTEM */
+#global-tooltip {
+    margin-top: 18px;
+    font-size: 1rem;
+    color: #fff;
+    background: rgba(0,0,0,.75);
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,.18);
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity .25s ease, transform .25s ease;
+    pointer-events: none;
+}
+
+#global-tooltip.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ───────────────────────────────
+   MOON SYSTEM
+──────────────────────────────── */
+
+.moon-orbit {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.15);
+    animation: moon-spin linear infinite;
+    pointer-events: none;
+}
+
+.moon {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(-50%, -50%);
+    width: 6px;
+    height: 6px;
+    background: #eee;
+    border-radius: 50%;
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+/* ───────────────────────────────
+   PLANET SPACING (FIXED)
+──────────────────────────────── */
+
+/* Mercury */
+.mercury {
+    width: 150px;
+    height: 150px;
+    animation-duration: 6s;
+}
+.mercury .planet { background: #d0d0d0; }
+
+/* Venus */
+.venus {
+    width: 190px;
+    height: 190px;
+    animation-duration: 9s;
+}
+.venus .planet { background: #ffd58f; }
+
+/* Earth */
+.earth {
+    width: 240px;
+    height: 240px;
+    animation-duration: 13s;
+}
+.earth .planet { background: #4ea0ff; }
+.moon-orbit-earth {
+    width: 40px;
+    height: 40px;
+    animation-duration: 2.2s;
+}
+
+/* Mars */
+.mars {
+    width: 340px;
+    height: 350px;
+    animation-duration: 17s;
+}
+.mars .planet { background: #ff6b3b; }
+.moon-orbit-mars-1 { width: 45px; height: 45px; animation-duration: 2.4s; }
+.moon-orbit-mars-2 { width: 55px; height: 55px; animation-duration: 3.1s; }
+
+/* Jupiter */
+.jupiter {
+    width: 480px;
+    height: 480px;
+    animation-duration: 24s;
+}
+.jupiter .planet { background: #eec799; }
+.moon-orbit-j-1 { width: 55px; height: 55px; animation-duration: 1.8s; }
+.moon-orbit-j-2 { width: 65px; height: 65px; animation-duration: 2.4s; }
+.moon-orbit-j-3 { width: 75px; height: 75px; animation-duration: 3s; }
+.moon-orbit-j-4 { width: 85px; height: 85px; animation-duration: 3.6s; }
+
+/* Saturn */
+.saturn {
+    width: 665px;
+    height: 665px;
+    animation-duration: 32s;
+}
+.saturn .planet { background: #f3d28b; }
+.saturn .saturn-ring {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 45px;
+    height: 18px;
+    transform: translate(-50%, -50%) rotate(20deg);
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.4);
+}
+.moon-orbit-s-1 { width: 60px; height: 60px; animation-duration: 3s; }
+.moon-orbit-s-2 { width: 70px; height: 70px; animation-duration: 3.8s; }
+.moon-orbit-s-3 { width: 80px; height: 80px; animation-duration: 4.6s; }
+.moon-orbit-s-4 { width: 90px; height: 90px; animation-duration: 5.4s; }
+
+.moon-orbit-s-5 {
+    width: 105px;
+    height: 105px;
+    animation-duration: 6.2s;
+}
+
+/* Uranus */
+.uranus {
+    width: 850px;
+    height: 850px;
+    animation-duration: 38s;
+}
+.uranus .planet { background: #7fd4ff; }
+
+.moon-orbit-u-1 { width: 60px; height: 60px; animation-duration: 2.8s; }
+.moon-orbit-u-2 { width: 72px; height: 72px; animation-duration: 3.6s; }
+
+/* Neptune */
+.neptune {
+    width: 980px;
+    height: 980px;
+    animation-duration: 45s;
+}
+.neptune .planet { background: #4c7dff; }
+
+.moon-orbit-n-1 { width: 60px; height: 60px; animation-duration: 3.4s; }
+
+/* ───────────────────────────────
+   ANIMATIONS
+──────────────────────────────── */
+
+@keyframes orbit-spin {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes moon-spin {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
