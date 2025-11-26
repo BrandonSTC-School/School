@@ -1,4 +1,4 @@
-{% extends "base.twig" %}
+{% extends "base.twig" %} 
 {% block title %}Solar System — AstroGallery{% endblock %}
 {% block body_class %}solar-page{% endblock %}
 
@@ -6,106 +6,338 @@
 
 <div class="solar-landing">
 
-    <!-- WRAPPER FOR PROPER CENTERED SCALING -->
-    <div class="solar-visual-wrapper">
+    <!-- CURSOR FOLLOW TOOLTIP -->
+    <div id="cursor-tooltip"></div>
 
-        <!-- SOLAR SYSTEM -->
-        <div class="solar-visual">
-
-            <!-- SUN -->
-            <div class="sun" data-tip="Sun — Our system’s star"></div>
-
-            <!-- MERCURY -->
-            <div class="planet-orbit mercury" data-tip="Mercury — Fastest orbiting planet">
-                <div class="orbit-circle"></div>
-                <div class="planet"></div>
-            </div>
-
-            <!-- VENUS -->
-            <div class="planet-orbit venus" data-tip="Venus — Earth’s toxic twin">
-                <div class="orbit-circle"></div>
-                <div class="planet"></div>
-            </div>
-
-            <!-- EARTH -->
-            <div class="planet-orbit earth" data-tip="Earth — Our home">
-                <div class="orbit-circle"></div>
-                <div class="planet"></div>
-
-                <div class="moon-orbit moon-orbit-earth" data-tip="Moon — Earth’s companion">
-                    <div class="moon"></div>
-                </div>
-            </div>
-
-            <!-- MARS -->
-            <div class="planet-orbit mars" data-tip="Mars — The Red Planet">
-                <div class="orbit-circle"></div>
-                <div class="planet"></div>
-
-                <div class="moon-orbit moon-orbit-mars-1" data-tip="Phobos — Inner moon"><div class="moon"></div></div>
-                <div class="moon-orbit moon-orbit-mars-2" data-tip="Deimos — Outer moon"><div class="moon"></div></div>
-            </div>
-
-            <!-- JUPITER -->
-            <div class="planet-orbit jupiter" data-tip="Jupiter — Largest planet">
-                <div class="orbit-circle"></div>
-                <div class="planet"></div>
-
-                <div class="moon-orbit moon-orbit-j-1" data-tip="Io — Volcanic moon"><div class="moon"></div></div>
-                <div class="moon-orbit moon-orbit-j-2" data-tip="Europa — Icy ocean world"><div class="moon"></div></div>
-                <div class="moon-orbit moon-orbit-j-3" data-tip="Ganymede — Largest moon"><div class="moon"></div></div>
-                <div class="moon-orbit moon-orbit-j-4" data-tip="Callisto — Ancient surface"><div class="moon"></div></div>
-            </div>
-
-            <!-- SATURN -->
-            <div class="planet-orbit saturn" data-tip="Saturn — Ringed giant">
-                <div class="orbit-circle"></div>
-                <div class="planet"></div>
-                <div class="saturn-ring"></div>
-
-                <div class="moon-orbit moon-orbit-s-1" data-tip="Titan — Thick atmosphere"><div class="moon"></div></div>
-                <div class="moon-orbit moon-orbit-s-2" data-tip="Enceladus — Icy geysers"><div class="moon"></div></div>
-                <div class="moon-orbit moon-orbit-s-3" data-tip="Saturn moon"><div class="moon"></div></div>
-                <div class="moon-orbit moon-orbit-s-4" data-tip="Rhea — Bright icy moon"><div class="moon"></div></div>
-                <div class="moon-orbit moon-orbit-s-5" data-tip="Dione — Cratered moon"><div class="moon"></div></div>
-            </div>
-
-            <!-- URANUS -->
-            <div class="planet-orbit uranus" data-tip="Uranus — Tilted ice giant">
-                <div class="orbit-circle"></div>
-                <div class="planet"></div>
-
-                <div class="moon-orbit moon-orbit-u-1" data-tip="Miranda — Patchwork moon"><div class="moon"></div></div>
-                <div class="moon-orbit moon-orbit-u-2" data-tip="Ariel — Bright moon"><div class="moon"></div></div>
-            </div>
-
-            <!-- NEPTUNE -->
-            <div class="planet-orbit neptune" data-tip="Neptune — Fastest winds">
-                <div class="orbit-circle"></div>
-                <div class="planet"></div>
-
-                <div class="moon-orbit moon-orbit-n-1" data-tip="Triton — Retrograde moon"><div class="moon"></div></div>
-            </div>
-
-        </div> <!-- END .solar-visual -->
-
-    </div> <!-- END WRAPPER -->
-
-    <!-- GLOBAL TOOLTIP -->
-    <div id="global-tooltip">Hover over something…</div>
-
-    <!-- INFO PANEL -->
+    <!-- INFO TEXT -->
     <div class="solar-info">
         <h1>🪐 Explore Our Solar System</h1>
         <p class="subtitle">
             Hover planets and moons to learn a quick fact.<br>
             Their motion pauses while you inspect them.
         </p>
-
-        <a href="/task2/phps/welcome.php" class="btn btn-primary solar-enter-btn">
-            🚀 Enter AstroGallery
-        </a>
     </div>
+
+    <!-- CENTERED SCALING WRAPPER -->
+    <div class="solar-visual-wrapper">
+
+        <!-- SOLAR SYSTEM -->
+        <div class="solar-visual">
+
+            <!-- SUN -->
+            <div class="sun"
+                data-name="The Sun"
+                data-size="696,340 km radius"
+                data-mass="1.99 x 10³⁰ kg"
+                data-age="4.6 billion years"
+                data-temp="5,500°C surface"
+                data-wind="400 km/s solar wind"
+                data-distance="Center of system">
+            </div>
+
+            <!-- MERCURY -->
+            <div class="planet-orbit mercury">
+                <div class="orbit-circle"></div>
+
+                <div class="planet"
+                    data-name="Mercury"
+                    data-size="2,439 km radius"
+                    data-mass="3.30 x 10²³ kg"
+                    data-age="4.5 billion years"
+                    data-temp="-180°C to 430°C"
+                    data-wind="None (no atmosphere)"
+                    data-distance="57.9 million km from Sun">
+                </div>
+            </div>
+
+            <!-- VENUS -->
+            <div class="planet-orbit venus">
+                <div class="orbit-circle"></div>
+
+                <div class="planet"
+                    data-name="Venus"
+                    data-size="6,051 km radius"
+                    data-mass="4.87 x 10²⁴ kg"
+                    data-age="4.5 billion years"
+                    data-temp="471°C average"
+                    data-wind="360 km/h super-rotation"
+                    data-distance="108.2 million km from Sun">
+                </div>
+            </div>
+
+            <!-- EARTH -->
+            <div class="planet-orbit earth">
+                <div class="orbit-circle"></div>
+
+                <div class="planet"
+                    data-name="Earth"
+                    data-size="6,371 km radius"
+                    data-mass="5.97 x 10²⁴ kg"
+                    data-age="4.54 billion years"
+                    data-temp="-88°C to 58°C"
+                    data-wind="Up to 100 km/h"
+                    data-distance="149.6 million km from Sun">
+                </div>
+
+                <!-- MOON -->
+                <div class="moon-orbit moon-orbit-earth">
+                    <div class="moon"
+                        data-name="Moon"
+                        data-size="1,737 km radius"
+                        data-mass="7.35 x 10²² kg"
+                        data-age="4.53 billion years"
+                        data-temp="-173°C to 127°C"
+                        data-wind="No atmosphere"
+                        data-distance="384,400 km from Earth">
+                    </div>
+                </div>
+            </div>
+
+            <!-- MARS -->
+            <div class="planet-orbit mars">
+                <div class="orbit-circle"></div>
+
+                <div class="planet"
+                    data-name="Mars"
+                    data-size="3,389 km radius"
+                    data-mass="6.42 x 10²³ kg"
+                    data-age="4.5 billion years"
+                    data-temp="-125°C to 20°C"
+                    data-wind="Up to 400 km/h dust storms"
+                    data-distance="227.9 million km from Sun">
+                </div>
+                
+                <div class="moon-orbit moon-orbit-mars-1">
+                    <div class="moon"
+                        data-name="Phobos"
+                        data-size="11 km radius"
+                        data-mass="1.08 x 10¹⁶ kg"
+                        data-age="4.3 billion years"
+                        data-temp="-4°C to -112°C"
+                        data-wind="No atmosphere"
+                        data-distance="6,000 km from Mars">
+                    </div>
+                </div>
+
+                <div class="moon-orbit moon-orbit-mars-2">
+                    <div class="moon"
+                        data-name="Deimos"
+                        data-size="6 km radius"
+                        data-mass="2.0 x 10¹⁵ kg"
+                        data-age="4.3 billion years"
+                        data-temp="-40°C to -112°C"
+                        data-wind="No atmosphere"
+                        data-distance="20,000 km from Mars">
+                    </div>
+                </div>
+            </div>
+
+            <!-- JUPITER -->
+            <div class="planet-orbit jupiter">
+                <div class="orbit-circle"></div>
+
+                <div class="planet"
+                    data-name="Jupiter"
+                    data-size="69,911 km radius"
+                    data-mass="1.90 x 10²⁷ kg"
+                    data-age="4.5 billion years"
+                    data-temp="-145°C"
+                    data-wind="Up to 620 km/h"
+                    data-distance="778 million km from Sun">
+                </div>
+
+                <div class="moon-orbit moon-orbit-j-1">
+                    <div class="moon"
+                        data-name="Io"
+                        data-size="1,821 km radius"
+                        data-mass="8.93 x 10²² kg"
+                        data-age="4.5 billion years"
+                        data-temp="-143°C"
+                        data-wind="Volcanic plumes"
+                        data-distance="421,700 km from Jupiter">
+                    </div>
+                </div>
+
+                <div class="moon-orbit moon-orbit-j-2">
+                    <div class="moon"
+                        data-name="Europa"
+                        data-size="1,560 km radius"
+                        data-mass="4.80 x 10²² kg"
+                        data-age="4.5 billion years"
+                        data-temp="-160°C"
+                        data-wind="None"
+                        data-distance="670,900 km from Jupiter">
+                    </div>
+                </div>
+
+                <div class="moon-orbit moon-orbit-j-3">
+                    <div class="moon"
+                        data-name="Ganymede"
+                        data-size="2,634 km radius"
+                        data-mass="1.48 x 10²³ kg"
+                        data-age="4.5 billion years"
+                        data-temp="-163°C"
+                        data-wind="Thin oxygen atmosphere"
+                        data-distance="1,070,400 km from Jupiter">
+                    </div>
+                </div>
+
+                <div class="moon-orbit moon-orbit-j-4">
+                    <div class="moon"
+                        data-name="Callisto"
+                        data-size="2,410 km radius"
+                        data-mass="1.08 x 10²³ kg"
+                        data-age="4.5 billion years"
+                        data-temp="-139°C"
+                        data-wind="Thin CO₂ atmosphere"
+                        data-distance="1,882,700 km from Jupiter">
+                    </div>
+                </div>
+            </div>
+
+            <!-- SATURN -->
+            <div class="planet-orbit saturn">
+                <div class="orbit-circle"></div>
+                <div class="planet"
+                    data-name="Saturn"
+                    data-size="58,232 km radius"
+                    data-mass="5.68 x 10²⁶ kg"
+                    data-age="4.5 billion years"
+                    data-temp="-178°C"
+                    data-wind="Up to 1,800 km/h"
+                    data-distance="1.43 billion km from Sun">
+                </div>
+                <div class="saturn-ring"></div>
+
+                <div class="moon-orbit moon-orbit-s-1">
+                    <div class="moon"
+                        data-name="Titan"
+                        data-size="2,575 km radius"
+                        data-mass="1.35 x 10²³ kg"
+                        data-age="4.5 billion years"
+                        data-temp="-179°C"
+                        data-wind="Methane storms"
+                        data-distance="1.22 million km from Saturn">
+                    </div>
+                </div>
+
+                <div class="moon-orbit moon-orbit-s-2">
+                    <div class="moon"
+                        data-name="Enceladus"
+                        data-size="252 km radius"
+                        data-mass="1.08 x 10²⁰ kg"
+                        data-age="4.5 billion years"
+                        data-temp="-198°C"
+                        data-wind="Water vapor jets"
+                        data-distance="238,000 km from Saturn">
+                    </div>
+                </div>
+
+                <div class="moon-orbit moon-orbit-s-3">
+                    <div class="moon"
+                        data-name="Tethys"
+                        data-size="531 km radius"
+                        data-mass="6.2 x 10²⁰ kg"
+                        data-age="4.5 billion years"
+                        data-temp="-187°C"
+                        data-wind="None"
+                        data-distance="295,000 km from Saturn">
+                    </div>
+                </div>
+
+                <div class="moon-orbit moon-orbit-s-4">
+                    <div class="moon"
+                        data-name="Rhea"
+                        data-size="763 km radius"
+                        data-mass="2.3 x 10²¹ kg"
+                        data-age="4.5 billion years"
+                        data-temp="-174°C"
+                        data-wind="Thin oxygen atmosphere"
+                        data-distance="527,000 km from Saturn">
+                    </div>
+                </div>
+
+                <div class="moon-orbit moon-orbit-s-5">
+                    <div class="moon"
+                        data-name="Dione"
+                        data-size="561 km radius"
+                        data-mass="1.1 x 10²¹ kg"
+                        data-age="4.5 billion years"
+                        data-temp="-186°C"
+                        data-wind="None"
+                        data-distance="377,400 km from Saturn">
+                    </div>
+                </div>
+            </div>
+
+            <!-- URANUS -->
+            <div class="planet-orbit uranus">
+                <div class="orbit-circle"></div>
+
+                <div class="planet"
+                    data-name="Uranus"
+                    data-size="25,362 km radius"
+                    data-mass="8.68 x 10²⁵ kg"
+                    data-age="4.5 billion years"
+                    data-temp="-224°C"
+                    data-wind="900 km/h"
+                    data-distance="2.87 billion km from Sun">
+                </div>
+
+                <div class="moon-orbit moon-orbit-u-1">
+                    <div class="moon"
+                        data-name="Miranda"
+                        data-size="235 km radius"
+                        data-mass="6.6 x 10¹⁹ kg"
+                        data-age="4.5 billion years"
+                        data-temp="-187°C"
+                        data-wind="None"
+                        data-distance="130,000 km from Uranus">
+                    </div>
+                </div>
+
+                <div class="moon-orbit moon-orbit-u-2">
+                    <div class="moon"
+                        data-name="Ariel"
+                        data-size="579 km radius"
+                        data-mass="1.3 x 10²¹ kg"
+                        data-age="4.5 billion years"
+                        data-temp="-213°C"
+                        data-wind="None"
+                        data-distance="191,000 km from Uranus">
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEPTUNE -->
+            <div class="planet-orbit neptune">
+                <div class="orbit-circle"></div>
+
+                <div class="planet"
+                    data-name="Neptune"
+                    data-size="24,622 km radius"
+                    data-mass="1.02 x 10²⁶ kg"
+                    data-age="4.5 billion years"
+                    data-temp="-214°C"
+                    data-wind="2,100 km/h"
+                    data-distance="4.5 billion km from Sun">
+                </div>
+
+                <div class="moon-orbit moon-orbit-n-1">
+                    <div class="moon"
+                        data-name="Triton"
+                        data-size="1,353 km radius"
+                        data-mass="2.1 x 10²² kg"
+                        data-age="4.5 billion years"
+                        data-temp="-235°C"
+                        data-wind="Nitrogen plumes"
+                        data-distance="355,000 km from Neptune">
+                    </div>
+                </div>
+            </div>
+
+        </div> <!-- END solar-visual -->
+    </div> <!-- END wrapper -->
 
 </div>
 

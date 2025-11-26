@@ -1,63 +1,123 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    /* ---------------------------------------------------------------------
-       1) TOOLTIP + PAUSE LOGIC (your existing working system)
-    --------------------------------------------------------------------- */
     const solar = document.querySelector('.solar-visual');
-    const tooltip = document.getElementById('global-tooltip');
+    const tooltip = document.getElementById('cursor-tooltip');
 
-    if (!solar || !tooltip) return;
+    if (!solar || !tooltip) {
+        console.error("❌ Tooltip or solar container not found.");
+        return;
+    }
 
-    const items = solar.querySelectorAll('.sun, .planet, .moon, .planet-orbit, .moon-orbit');
+    // Only elements with actual data — NOT orbits
+    const hoverTargets = solar.querySelectorAll('.sun, .planet, .moon');
 
-    items.forEach(item => {
-        item.addEventListener('mouseenter', () => {
-            const text = item.getAttribute('data-tip');
-            if (text) {
-                tooltip.textContent = text;
-                tooltip.classList.add('visible');
-            }
-            solar.classList.add('solar-paused'); // freeze motion
-        });
+    // Your original listeners for real hover
+    function runOriginalMouseEnter(item) {
+        solar.classList.add('solar-paused');
 
-        item.addEventListener('mouseleave', () => {
-            tooltip.classList.remove('visible');
-            solar.classList.remove('solar-paused'); // resume motion
-        });
+        const name  = item.dataset.name || "Unknown Object";
+        const size  = item.dataset.size || null;
+        const mass  = item.dataset.mass || null;
+        const age   = item.dataset.age || null;
+        const temp  = item.dataset.temp || null;
+        const wind  = item.dataset.wind || null;
+        const dist  = item.dataset.distance || null;
+
+        tooltip.innerHTML = `
+            <strong>${name}</strong>
+            <ul>
+                ${size ? `<li><b>Size:</b> ${size}</li>` : ""}
+                ${mass ? `<li><b>Mass:</b> ${mass}</li>` : ""}
+                ${age ? `<li><b>Age:</b> ${age}</li>` : ""}
+                ${temp ? `<li><b>Temperature:</b> ${temp}</li>` : ""}
+                ${wind ? `<li><b>Wind:</b> ${wind}</li>` : ""}
+                ${dist ? `<li><b>Distance:</b> ${dist}</li>` : ""}
+            </ul>
+        `;
+
+        tooltip.style.opacity = "1";
+    }
+
+    function runOriginalMouseLeave() {
+        tooltip.style.opacity = "0";
+        solar.classList.remove('solar-paused');
+    }
+
+    function moveTooltip(e) {
+        tooltip.style.left = (e.clientX + 20) + "px";
+        tooltip.style.top  = (e.clientY + 20) + "px";
+    }
+
+    // Bind original events (still needed!)
+    hoverTargets.forEach(item => {
+        item.addEventListener('mouseenter', () => runOriginalMouseEnter(item));
+        item.addEventListener('mouseleave', runOriginalMouseLeave);
+        item.addEventListener('mousemove', moveTooltip);
     });
 
+    /* ----------------------------------------------------------
+       PROXIMITY HOVER — ONLY ADDING THIS PART
+    ---------------------------------------------------------- */
 
-    /* ---------------------------------------------------------------------
-       2) AUTOMATIC SOLAR SYSTEM SCALING (option C)
-       - Fits the solar system inside the available width
-       - Works on all screens
-       - Prevents overflow or clipping
-       - Requires NO CSS edits
-    --------------------------------------------------------------------- */
+    const PROXIMITY = 50; // px around object
+    let active = null;
+
+    window.addEventListener('mousemove', (e) => {
+        let nearest = null;
+
+        hoverTargets.forEach(item => {
+            const rect = item.getBoundingClientRect();
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top + rect.height / 2;
+
+            const dx = e.clientX - cx;
+            const dy = e.clientY - cy;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist <= PROXIMITY) {
+                nearest = item;
+            }
+        });
+
+        // If cursor moves away completely
+        if (!nearest) {
+            if (active) {
+                runOriginalMouseLeave();
+                active = null;
+            }
+            return;
+        }
+
+        // If hovering same item, just move tooltip
+        if (nearest === active) {
+            moveTooltip(e);
+            return;
+        }
+
+        // New item detected
+        active = nearest;
+        runOriginalMouseEnter(nearest);
+        moveTooltip(e);
+    });
+
+    /* -----------------------------------------
+       SCALE SYSTEM (unchanged)
+    ----------------------------------------- */
     function autoScaleSolar() {
-        const container = document.querySelector('.solar-landing');
-        if (!container) return;
+        const wrapper = document.querySelector('.solar-visual-wrapper');
+        if (!wrapper) return;
 
-        const containerWidth = container.clientWidth;
-        const solarWidth = solar.offsetWidth;
+        let baseWidth = 1000;
+        let scale = wrapper.clientWidth / baseWidth;
 
-        // Scale factor to fit the solar system
-        let scale = containerWidth / (solarWidth + 40);
-
-        // Upper limit (prevent large screens from overscaling)
         scale = Math.min(scale, 1);
-
-        // Lower limit (keeps usability on mobile)
         scale = Math.max(scale, 0.35);
 
         solar.style.transform = `scale(${scale})`;
         solar.style.transformOrigin = 'top center';
     }
 
-    // Run scaling immediately
     autoScaleSolar();
-
-    // Run scaling again on window resize
     window.addEventListener('resize', autoScaleSolar);
 
 });
