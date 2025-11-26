@@ -75,6 +75,87 @@ h1, h2, h3 {
     text-align: center;
 }
 
+/* Sticky footer */
+.site-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 0, 0, 0.4);
+    backdrop-filter: blur(3px);
+    padding: 10px 20px;
+    z-index: 5000;
+    color: #fff;
+    font-size: 0.9rem;
+}
+
+/* Footer layout */
+.footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1600px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* LEFT area */
+.footer-left {
+    display: flex;
+    gap: 15px;
+}
+
+/* Social icons/buttons */
+.footer-icon {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: 0.2s;
+}
+
+.footer-icon:hover {
+    background: rgba(255,255,255,0.15);
+}
+
+/* CENTER text */
+.footer-center {
+    text-align: center;
+    flex: 1;
+}
+
+/* RIGHT button */
+.footer-right {
+    display: flex;
+    justify-content: flex-end;
+    min-width: 150px;
+    gap: 10px;
+}
+
+.footer-btn {
+    background: rgba(255,255,255,0.18);
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.footer-btn:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+.footer-btn-secondary {
+    background: rgba(255, 0, 0, 0.3);
+    border: 1px solid rgba(255,0,0,0.5);
+}
+
+.footer-btn-secondary:hover {
+    background: rgba(255, 0, 0, 0.5);
+}
+
 /* FORM INPUTS */
 input, select {
     padding: 0.6rem;
@@ -121,7 +202,7 @@ input, select {
     background: var(--accent-soft);
     color: #111;
     transform: translateY(-1px);
-    box-shadow: 0 0 12px rgba(255,0,0,.55);
+    box-shadow: 0 0 12px rgba(255, 0, 0, 0.4);
 }
 
 .btn-secondary {
@@ -487,26 +568,48 @@ form[action*="news.php"] {
    SOLAR SYSTEM LANDING
 ──────────────────────────────── */
 
-body.solar-page .top-home-wrapper { display: none; }
-
-body.solar-page .container {
-    max-width: 1100px;
-    min-height: 100vh;
-    padding: 2rem 2rem 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: radial-gradient(circle at top, #151515 0%, #050505 60%, #020202 100%);
-    border-radius: 16px;
-    border: 1px solid #222;
-    backdrop-filter: blur(8px);
+body.solar-page .top-home-wrapper {
+    display: none;
 }
 
+/* REMOVE normal page container styles */
+body.solar-page .container {
+    max-width: none;
+    min-height: 100vh;
+    padding: 0;
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    background: radial-gradient(circle at top, #151515 0%, #050505 60%, #020202 100%);
+    backdrop-filter: none;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* Main stack */
 .solar-landing {
+    width: 100%;
+    min-height: 100vh;
+
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.8rem;
+    justify-content: flex-start;
+
+    gap: 2rem;
+    padding-top: 2rem;
+
+    overflow: visible;
+}
+
+/* Wrap around solar system to enable scaling */
+.solar-visual-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: visible;
 }
 
 /* MAIN VISUAL */
@@ -514,15 +617,12 @@ body.solar-page .container {
     position: relative;
     width: 1000px;
     height: 1000px;
-    margin: 0 auto;
-}
 
-.solar-visual-wrapper {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    max-width: 100%;
+    max-height: 100%;
     overflow: visible;
+
+    transform-origin: center top !important;
 }
 
 @media (max-width: 650px) {
@@ -551,11 +651,10 @@ body.solar-page .container {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    border: 1px solid rgba(255,255,255,.10);
+    border: 1px solid rgba(255, 255, 255, .10);
     pointer-events: none;
 }
 
-/* Planet dot */
 .planet {
     position: absolute;
     top: 50%;
@@ -566,7 +665,7 @@ body.solar-page .container {
     border-radius: 50%;
     cursor: pointer;
     pointer-events: auto;
-    box-shadow: 0 0 6px rgba(255,255,255,.8);
+    box-shadow: 0 0 6px rgba(255, 255, 255, .8);
 }
 
 /* Sun */
@@ -581,40 +680,43 @@ body.solar-page .container {
     cursor: pointer;
     pointer-events: auto;
     background: radial-gradient(circle, #ffd15c 0%, #ff9100 50%, #b33b00 80%);
-    box-shadow: 0 0 55px rgba(255,150,0,.9);
+    box-shadow: 0 0 55px rgba(255, 150, 0, .9);
 }
 
-/* ───────────────────────────────
-   HOVER FREEZE (JS toggles class)
-──────────────────────────────── */
-
+/* Pause during hover */
 .solar-visual.solar-paused .planet-orbit,
 .solar-visual.solar-paused .moon-orbit {
     animation-play-state: paused !important;
 }
 
-/* GLOBAL TOOLTIP BELOW SOLAR SYSTEM */
-#global-tooltip {
-    margin-top: 18px;
-    font-size: 1rem;
-    color: #fff;
-    background: rgba(0,0,0,.75);
-    padding: 8px 16px;
-    border-radius: 6px;
-    border: 1px solid rgba(255,255,255,.18);
-    opacity: 0;
-    transform: translateY(8px);
-    transition: opacity .25s ease, transform .25s ease;
+/* Floating tooltip that follows cursor */
+#cursor-tooltip {
+    position: fixed;
     pointer-events: none;
+    background: rgba(0,0,0,.8);
+    color: #fff;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,.25);
+    font-size: 0.85rem;
+    max-width: 260px;
+    opacity: 0;
+    transition: opacity .12s ease;
+    z-index: 999999;
+    text-align: left;
 }
 
-#global-tooltip.visible {
-    opacity: 1;
-    transform: translateY(0);
+#cursor-tooltip ul {
+    padding-left: 18px;
+    margin: 6px 0 0 0;
+}
+
+#cursor-tooltip li {
+    margin-bottom: 4px;
 }
 
 /* ───────────────────────────────
-   MOON SYSTEM
+   MOONS
 ──────────────────────────────── */
 
 .moon-orbit {
@@ -623,7 +725,7 @@ body.solar-page .container {
     left: 0;
     transform: translate(-50%, -50%);
     border-radius: 50%;
-    border: 1px solid rgba(255,255,255,.15);
+    border: 1px solid rgba(255, 255, 255, .15);
     animation: moon-spin linear infinite;
     pointer-events: none;
 }
@@ -642,66 +744,25 @@ body.solar-page .container {
 }
 
 /* ───────────────────────────────
-   PLANET SPACING (FIXED)
+   PLANET ORBIT SIZES + COLORS
 ──────────────────────────────── */
 
-/* Mercury */
-.mercury {
-    width: 150px;
-    height: 150px;
-    animation-duration: 6s;
-}
+.mercury { width: 150px; height: 150px; animation-duration: 6s; }
 .mercury .planet { background: #d0d0d0; }
 
-/* Venus */
-.venus {
-    width: 190px;
-    height: 190px;
-    animation-duration: 9s;
-}
+.venus { width: 190px; height: 190px; animation-duration: 9s; }
 .venus .planet { background: #ffd58f; }
 
-/* Earth */
-.earth {
-    width: 240px;
-    height: 240px;
-    animation-duration: 13s;
-}
+.earth { width: 240px; height: 240px; animation-duration: 13s; }
 .earth .planet { background: #4ea0ff; }
-.moon-orbit-earth {
-    width: 40px;
-    height: 40px;
-    animation-duration: 2.2s;
-}
 
-/* Mars */
-.mars {
-    width: 340px;
-    height: 350px;
-    animation-duration: 17s;
-}
+.mars { width: 340px; height: 350px; animation-duration: 17s; }
 .mars .planet { background: #ff6b3b; }
-.moon-orbit-mars-1 { width: 45px; height: 45px; animation-duration: 2.4s; }
-.moon-orbit-mars-2 { width: 55px; height: 55px; animation-duration: 3.1s; }
 
-/* Jupiter */
-.jupiter {
-    width: 480px;
-    height: 480px;
-    animation-duration: 24s;
-}
+.jupiter { width: 480px; height: 480px; animation-duration: 24s; }
 .jupiter .planet { background: #eec799; }
-.moon-orbit-j-1 { width: 55px; height: 55px; animation-duration: 1.8s; }
-.moon-orbit-j-2 { width: 65px; height: 65px; animation-duration: 2.4s; }
-.moon-orbit-j-3 { width: 75px; height: 75px; animation-duration: 3s; }
-.moon-orbit-j-4 { width: 85px; height: 85px; animation-duration: 3.6s; }
 
-/* Saturn */
-.saturn {
-    width: 665px;
-    height: 665px;
-    animation-duration: 32s;
-}
+.saturn { width: 665px; height: 665px; animation-duration: 32s; }
 .saturn .planet { background: #f3d28b; }
 .saturn .saturn-ring {
     position: absolute;
@@ -713,42 +774,36 @@ body.solar-page .container {
     border-radius: 50%;
     border: 1px solid rgba(255,255,255,.4);
 }
+
+.uranus { width: 850px; height: 850px; animation-duration: 38s; }
+.uranus .planet { background: #7fd4ff; }
+
+.neptune { width: 980px; height: 980px; animation-duration: 45s; }
+.neptune .planet { background: #4c7dff; }
+
+/* Moons orbit size */
+.moon-orbit-earth { width: 40px; height: 40px; animation-duration: 2.2s; }
+
+.moon-orbit-mars-1 { width: 45px; height: 45px; animation-duration: 2.4s; }
+.moon-orbit-mars-2 { width: 55px; height: 55px; animation-duration: 3.1s; }
+
+.moon-orbit-j-1 { width: 55px; height: 55px; animation-duration: 1.8s; }
+.moon-orbit-j-2 { width: 65px; height: 65px; animation-duration: 2.4s; }
+.moon-orbit-j-3 { width: 75px; height: 75px; animation-duration: 3s; }
+.moon-orbit-j-4 { width: 85px; height: 85px; animation-duration: 3.6s; }
+
 .moon-orbit-s-1 { width: 60px; height: 60px; animation-duration: 3s; }
 .moon-orbit-s-2 { width: 70px; height: 70px; animation-duration: 3.8s; }
 .moon-orbit-s-3 { width: 80px; height: 80px; animation-duration: 4.6s; }
 .moon-orbit-s-4 { width: 90px; height: 90px; animation-duration: 5.4s; }
-
-.moon-orbit-s-5 {
-    width: 105px;
-    height: 105px;
-    animation-duration: 6.2s;
-}
-
-/* Uranus */
-.uranus {
-    width: 850px;
-    height: 850px;
-    animation-duration: 38s;
-}
-.uranus .planet { background: #7fd4ff; }
+.moon-orbit-s-5 { width: 105px; height: 105px; animation-duration: 6.2s; }
 
 .moon-orbit-u-1 { width: 60px; height: 60px; animation-duration: 2.8s; }
 .moon-orbit-u-2 { width: 72px; height: 72px; animation-duration: 3.6s; }
 
-/* Neptune */
-.neptune {
-    width: 980px;
-    height: 980px;
-    animation-duration: 45s;
-}
-.neptune .planet { background: #4c7dff; }
-
 .moon-orbit-n-1 { width: 60px; height: 60px; animation-duration: 3.4s; }
 
-/* ───────────────────────────────
-   ANIMATIONS
-──────────────────────────────── */
-
+/* Animations */
 @keyframes orbit-spin {
     from { transform: translate(-50%, -50%) rotate(0deg); }
     to   { transform: translate(-50%, -50%) rotate(360deg); }
@@ -757,4 +812,9 @@ body.solar-page .container {
 @keyframes moon-spin {
     from { transform: translate(-50%, -50%) rotate(0deg); }
     to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Prevent footer overlap on solar page */
+body.solar-page .solar-landing {
+    padding-bottom: 160px;  /* Adjust as needed */
 }
