@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
 
-        // ✅ Correct answer — store user id in session to allow password reset
+        // Correct answer — store user id in session to allow password reset
         $_SESSION['reset_user_id'] = $user['id'];
 
         // Show password reset form

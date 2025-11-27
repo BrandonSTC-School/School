@@ -1,4 +1,6 @@
 ### Added Task2
+27/11/2025 - Added Captcha when user logs in or signs up. Removed reduntant Home button while user was logged in
+### Added Task2
 26/11/2025 - Updated tooltip for solar page, added footer with social media buttons + button logic to behave correctly if user is logged in/out, updated CSS style
 ### Added Task2
 25/11/2025 - New landing page, solar system, interactable with text for details, updated CSS to help with scalability 

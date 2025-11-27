@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $stmt->execute([$userId, $title, $relativePath]);
 
                     // Flash success message and redirect (PRG)
-                    $_SESSION['success_message'] = " Image uploaded successfully!";
+                    $_SESSION['success_message'] = "✅ Image uploaded successfully!";
                     header("Location: " . $_SERVER['REQUEST_URI'] . "?t=" . time());
                     exit;
 

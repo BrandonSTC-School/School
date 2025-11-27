@@ -17,6 +17,14 @@ if (isset($_GET['registered'])) {
 // ----------------------------------------------------
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+    // Backend captcha validation
+    if (empty($_POST['not_alien'])) {
+        echo $twig->render('signup.twig', [
+            'error' => "Please confirm you are not an alien 🛸"
+        ]);
+        exit;
+    }
+
     // Get email and password from form, trim whitespace
     $email = trim($_POST['eMail'] ?? '');
     $password = $_POST['password'] ?? '';
