@@ -81,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             if ($updatedOk) {
-                // ✅ Keep the session in sync with the database so dashboard shows new info immediately
+                // Keep the session in sync with the database so dashboard shows new info immediately
                 $_SESSION['user_name']    = $name;
                 $_SESSION['user_surname'] = $surname;
                 $_SESSION['user_email']   = $email;

@@ -7,7 +7,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 // ----------------------------------------------
-// ✅ Handle filters
+// Handle filters
 // ----------------------------------------------
 $publisher = $_GET['publisher'] ?? '';
 $period    = $_GET['period'] ?? 'week';
@@ -37,7 +37,7 @@ $fromDate = date('Y-m-d', strtotime("-$days days"));
 $apiUrl .= "&published_at_gte=$fromDate";
 
 // ----------------------------------------------
-// ✅ Fetch or cache response
+// Fetch or cache response
 // ----------------------------------------------
 $cacheDir = __DIR__ . '/../cache/';
 if (!is_dir($cacheDir)) mkdir($cacheDir, 0777, true);
@@ -55,7 +55,7 @@ if (file_exists($cacheFile) && (time() - filemtime($cacheFile)) < $cacheTime) {
 }
 
 // ----------------------------------------------
-// ✅ Parse API response
+// Parse API response
 // ----------------------------------------------
 $articles = [];
 $error = null;
@@ -72,7 +72,7 @@ if ($response) {
 }
 
 // ----------------------------------------------
-// ✅ Render Twig template
+// Render Twig template
 // ----------------------------------------------
 echo $twig->render('news.twig', [
     'articles'  => $articles,
