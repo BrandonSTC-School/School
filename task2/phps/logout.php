@@ -13,3 +13,4 @@ header("Location: ../index.php");
 
 // Stop further script execution
 exit;
+?>

@@ -8,10 +8,10 @@ require_once 'dbConnection.php';
 /*
 Flow of this script:
 
-1) User opens page (GET) -> show forgot.twig form: email + secret answer
-2) POST with step=verify -> check email + secret answer
-    - If valid -> store reset_user_id in session -> show reset.twig (new password form)
-3) POST with step=reset -> validate new password -> update DB -> show success
+1) User opens page (GET) → show forgot.twig form: email + secret answer
+2) POST with step=verify → check email + secret answer
+    - If valid → store reset_user_id in session → show reset.twig (new password form)
+3) POST with step=reset → validate new password → update DB → show success
 */
 
 // Check if form submitted
@@ -128,7 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // -----------------------------------
-// Initial GET request -> show email + secret answer form
+// Initial GET request → show email + secret answer form
 // -----------------------------------
 echo $twig->render('forgot.twig');
 ?>

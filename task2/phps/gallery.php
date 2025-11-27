@@ -19,7 +19,7 @@ $error = "";
 $message = "";
 
 // --------------------------------------------------
-// Retrieve and clear flash message (Post-Redirect-Get pattern)
+// ✅ Retrieve and clear flash message (Post-Redirect-Get pattern)
 // --------------------------------------------------
 if (isset($_SESSION['success_message'])) {
     $message = $_SESSION['success_message'];
@@ -27,7 +27,7 @@ if (isset($_SESSION['success_message'])) {
 }
 
 // --------------------------------------------------
-// Handle image upload (File-based storage)
+// ✅ Handle image upload (File-based storage)
 // --------------------------------------------------
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = trim($_POST['title'] ?? '');
@@ -38,19 +38,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = "Please enter a title and select an image.";
     } else {
 
-        // Create /uploads directory if missing
+        // ✅ Create /uploads directory if missing
         $mainUploadDir = __DIR__ . '/../uploads/';
         if (!is_dir($mainUploadDir)) {
             mkdir($mainUploadDir, 0777, true);
         }
 
-        // Create user-specific subfolder (uploads/user_<id>/)
+        // ✅ Create user-specific subfolder (uploads/user_<id>/)
         $userUploadDir = $mainUploadDir . "user_$userId/";
         if (!is_dir($userUploadDir)) {
             mkdir($userUploadDir, 0777, true);
         }
 
-        // Validate image extension
+        // ✅ Validate image extension
         $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
         $allowed = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
 
@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $targetPath   = $userUploadDir . $uniqueName;
             $relativePath = "uploads/user_$userId/" . $uniqueName;
 
-            // Move uploaded file safely
+            // ✅ Move uploaded file safely
             if (move_uploaded_file($file['tmp_name'], $targetPath)) {
                 try {
                     // Insert metadata into the database
@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $stmt->execute([$userId, $title, $relativePath]);
 
                     // Flash success message and redirect (PRG)
-                    $_SESSION['success_message'] = " Image uploaded successfully!";
+                    $_SESSION['success_message'] = "✅ Image uploaded successfully!";
                     header("Location: " . $_SERVER['REQUEST_URI'] . "?t=" . time());
                     exit;
 
@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // --------------------------------------------------
-// Soft delete / hide image
+// ✅ Soft delete / hide image
 // --------------------------------------------------
 if (isset($_GET['hide'])) {
     $imgId = (int) $_GET['hide'];
@@ -103,7 +103,7 @@ if (isset($_GET['hide'])) {
 }
 
 // --------------------------------------------------
-// Search & Sort functionality
+// ✅ Search & Sort functionality
 // --------------------------------------------------
 $search = trim($_GET['search'] ?? '');
 $sort   = $_GET['sort'] ?? 'newest';
@@ -130,7 +130,7 @@ $stmt->execute($params);
 $images = $stmt->fetchAll();
 
 // --------------------------------------------------
-// Render Twig template
+// ✅ Render Twig template
 // --------------------------------------------------
 echo $twig->render('gallery.twig', [
     'images'  => $images,

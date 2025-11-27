@@ -9,6 +9,14 @@ require_once 'dbConnection.php';
 // --------------------------------------------------
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+    // Backend captcha validation
+    if (empty($_POST['not_alien'])) {
+        echo $twig->render('signup.twig', [
+            'error' => "Please confirm you are not an alien 🛸"
+        ]);
+        exit;
+    }
+
     // Retrieve and sanitize input values
     $name            = trim($_POST['name']);
     $surname         = trim($_POST['surname']);
