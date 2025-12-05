@@ -1,84 +1,101 @@
 <?php
 require_once 'session.php';
+require_once 'dbConnection.php';
+require_once 'fetchRss.php';
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit;
 }
 
-// ----------------------------------------------
-// Handle filters
-// ----------------------------------------------
+// ------------------------------
+// Filters (camelCase)
+// ------------------------------
 $publisher = $_GET['publisher'] ?? '';
 $period    = $_GET['period'] ?? 'week';
 $search    = trim($_GET['search'] ?? '');
+$limit     = 12;
 
-// Base API endpoint
-$apiUrl = "https://api.spaceflightnewsapi.net/v4/articles/?limit=12&ordering=-published_at";
-
-// Add general keyword search (title, summary, etc.)
-if ($search !== '') {
-    $apiUrl .= "&search=" . urlencode($search);
-}
-
-// Filter by specific publisher (SpaceX, NASA, ESA, etc.)
-if ($publisher !== '') {
-    $apiUrl .= "&news_site=" . urlencode($publisher);
-}
-
-// Filter by date range
+// Determine date window
 $days = match ($period) {
-    'day' => 1,
-    'week' => 7,
+    'day'   => 1,
+    'week'  => 7,
     'month' => 30,
     default => 7
 };
 $fromDate = date('Y-m-d', strtotime("-$days days"));
+
+// ------------------------------
+// Fetch Spaceflight News API
+// ------------------------------
+$apiUrl = "https://api.spaceflightnewsapi.net/v4/articles/?limit=100&ordering=-published_at";
+
+if ($search !== '') {
+    $apiUrl .= "&search=" . urlencode($search);
+}
+if ($publisher !== '') {
+    $apiUrl .= "&news_site=" . urlencode($publisher);
+}
 $apiUrl .= "&published_at_gte=$fromDate";
 
-// ----------------------------------------------
-// Fetch or cache response
-// ----------------------------------------------
-$cacheDir = __DIR__ . '/../cache/';
-if (!is_dir($cacheDir)) mkdir($cacheDir, 0777, true);
+$sfResponse = @file_get_contents($apiUrl);
+$sfArticles = [];
 
-$cacheKey = md5($apiUrl); // cache per filter combination
-$cacheFile = $cacheDir . "news_$cacheKey.json";
-$cacheTime = 60 * 60 * 3; // 3 hours
-
-$response = null;
-if (file_exists($cacheFile) && (time() - filemtime($cacheFile)) < $cacheTime) {
-    $response = file_get_contents($cacheFile);
-} else {
-    $response = @file_get_contents($apiUrl);
-    if ($response) file_put_contents($cacheFile, $response);
-}
-
-// ----------------------------------------------
-// Parse API response
-// ----------------------------------------------
-$articles = [];
-$error = null;
-
-if ($response) {
-    $data = json_decode($response, true);
-    if (isset($data['results'])) {
-        $articles = $data['results'];
-    } else {
-        $error = "No news articles found.";
+if ($sfResponse) {
+    $json = json_decode($sfResponse, true);
+    if (isset($json['results'])) {
+        foreach ($json['results'] as $item) {
+            $sfArticles[] = [
+                'title'       => $item['title'],
+                'summary'     => $item['summary'],
+                'url'         => $item['url'],
+                'imageUrl'    => $item['image_url'],
+                'publishedAt' => $item['published_at'],
+                'source'      => $item['news_site'] ?? 'Spaceflight News'
+            ];
+        }
     }
-} else {
-    $error = "Failed to contact Spaceflight News API.";
 }
 
-// ----------------------------------------------
-// Render Twig template
-// ----------------------------------------------
+// ------------------------------
+// Fetch RSS Feeds
+// ------------------------------
+$nasaArticles = fetchRssFeed("https://www.nasa.gov/rss/dyn/breaking_news.rss", "NASA");
+$esaArticles  = fetchRssFeed("https://www.esa.int/rssfeed/Our_Activities", "ESA");
+
+// ------------------------------
+// Merge + filter + sort
+// ------------------------------
+$allArticles = array_merge($sfArticles, $nasaArticles, $esaArticles);
+
+// Search filter
+if ($search !== '') {
+    $allArticles = array_filter($allArticles, function ($a) use ($search) {
+        return stripos($a['title'], $search) !== false ||
+               stripos($a['summary'], $search) !== false;
+    });
+}
+
+// Date filter
+$allArticles = array_filter($allArticles, function ($a) use ($fromDate) {
+    return strtotime($a['publishedAt']) >= strtotime($fromDate);
+});
+
+// Sort newest → oldest
+usort($allArticles, function ($a, $b) {
+    return strtotime($b['publishedAt']) - strtotime($a['publishedAt']);
+});
+
+// Initial batch
+$initialArticles = array_slice($allArticles, 0, $limit);
+
+// Render Twig
 echo $twig->render('news.twig', [
-    'articles'  => $articles,
-    'error'     => $error,
-    'publisher' => $publisher,
-    'period'    => $period,
-    'search'    => $search
+    'articles' => $initialArticles,
+    'filters'  => [
+        'publisher' => $publisher,
+        'period'    => $period,
+        'search'    => $search
+    ],
+    'total' => count($allArticles)
 ]);
-?>

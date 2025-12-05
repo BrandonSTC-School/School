@@ -1,0 +1,11 @@
+<div class="news-card">
+    {% if article.imageUrl %}
+        <img src="{{ article.imageUrl }}" alt="{{ article.title }}">
+    {% endif %}
+    <h3>{{ article.title }}</h3>
+    <p class="news-date">{{ article.publishedAt|date("Y-m-d") }} — {{ article.source }}</p>
+    <p>{{ article.summary|slice(0,160) }}...</p>
+    <a href="{{ article.url }}" target="_blank" class="btn btn-secondary" style="margin-top:10px;">
+        🔗 Read More
+    </a>
+</div>

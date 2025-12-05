@@ -20,7 +20,7 @@ if (isset($_SESSION['success_message'])) {
 }
 
 // ----------------------------------------------
-// Restore image (set status = 1)
+// ✅ Restore image (set status = 1)
 // ----------------------------------------------
 if (isset($_GET['restore'])) {
     $imgId = (int) $_GET['restore'];
@@ -34,7 +34,7 @@ if (isset($_GET['restore'])) {
 }
 
 // ----------------------------------------------
-// Search & Sort functionality
+// ✅ Search & Sort functionality
 // ----------------------------------------------
 $search = trim($_GET['search'] ?? '');
 $sort   = $_GET['sort'] ?? 'newest';
@@ -66,7 +66,7 @@ $stmt->execute($params);
 $hiddenImages = $stmt->fetchAll();
 
 // ----------------------------------------------
-// Render template
+// ✅ Render template
 // ----------------------------------------------
 echo $twig->render('galleryHidden.twig', [
     'images'  => $hiddenImages,

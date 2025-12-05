@@ -1,14 +1,10 @@
-/* ────────────────────────────────
- 🌌 ASTROGALLERY MAIN STYLESHEET
-──────────────────────────────── */
-
+/* ──────────────────────────────── 🌌 ASTROGALLERY MAIN STYLESHEET ──────────────────────────────── */
 /* RESET & THEME VARIABLES */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
 :root {
     --bg-main: #080808;
     --bg-card: #111111;
@@ -19,7 +15,6 @@
     --error: #ff4d4d;
     --success: #4fff9e;
 }
-
 /* GLOBAL STRUCTURE */
 body {
     font-family: Arial, sans-serif;
@@ -29,34 +24,27 @@ body {
     padding: 1rem;
     text-align: center;
 }
-
 /* ✅ Background images */
-
 body.welcome-page {
     background: url('/task2/assets/images/welcomeBG.webp') no-repeat center center fixed;
     background-size: cover;
 }
-
 body.login-page {
     background: url('/task2/assets/images/loginBG.webp') no-repeat center center fixed;
     background-size: cover;
 }
-
 body.signin-page {
     background: url('/task2/assets/images/signinBG.webp') no-repeat center center fixed;
     background-size: cover;
 }
-
 body.account-page {
     background: url('/task2/assets/images/accountBG.webp') no-repeat center center fixed;
     background-size: cover;
 }
-
 body.dashboard-page {
     background: url('/task2/assets/images/dashboardBG.webp') no-repeat center center fixed;
     background-size: cover;
 }
-
 .container {
     max-width: 1000px;
     margin: 0 auto;
@@ -67,14 +55,12 @@ body.dashboard-page {
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
 }
-
 /* HEADINGS */
 h1, h2, h3 {
     margin-bottom: 1rem;
     color: var(--text-main);
     text-align: center;
 }
-
 /* Sticky footer */
 .site-footer {
     position: fixed;
@@ -88,7 +74,6 @@ h1, h2, h3 {
     color: #fff;
     font-size: 0.9rem;
 }
-
 /* Footer layout */
 .footer-inner {
     display: flex;
@@ -98,13 +83,11 @@ h1, h2, h3 {
     margin: 0 auto;
     width: 100%;
 }
-
 /* LEFT area */
 .footer-left {
     display: flex;
     gap: 15px;
 }
-
 /* Social icons/buttons */
 .footer-icon {
     color: #fff;
@@ -114,17 +97,14 @@ h1, h2, h3 {
     border-radius: 4px;
     transition: 0.2s;
 }
-
 .footer-icon:hover {
     background: rgba(255,255,255,0.15);
 }
-
 /* CENTER text */
 .footer-center {
     text-align: center;
     flex: 1;
 }
-
 /* RIGHT button */
 .footer-right {
     display: flex;
@@ -132,7 +112,6 @@ h1, h2, h3 {
     min-width: 150px;
     gap: 10px;
 }
-
 .footer-btn {
     background: rgba(255,255,255,0.18);
     color: #fff;
@@ -142,20 +121,16 @@ h1, h2, h3 {
     font-weight: 600;
     transition: 0.2s;
 }
-
 .footer-btn:hover {
     background: rgba(255,255,255,0.3);
 }
-
 .footer-btn-secondary {
     background: rgba(255, 0, 0, 0.3);
     border: 1px solid rgba(255,0,0,0.5);
 }
-
 .footer-btn-secondary:hover {
     background: rgba(255, 0, 0, 0.5);
 }
-
 /* FORM INPUTS */
 input, select {
     padding: 0.6rem;
@@ -167,7 +142,6 @@ input, select {
     border-radius: 6px;
     text-align: center;
 }
-
 /* BUTTON SYSTEM */
 .btn {
     display: inline-block;
@@ -185,14 +159,11 @@ input, select {
     backface-visibility: hidden;
     transform: translateZ(0);
 }
-
 /* Text flicker prevention fix */
-.btn,
-.file-upload label {
+.btn, .file-upload label {
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
 }
-
 /* BUTTON COLORS */
 .btn-primary {
     background: var(--accent);
@@ -204,7 +175,6 @@ input, select {
     transform: translateY(-1px);
     box-shadow: 0 0 12px rgba(255, 0, 0, 0.4);
 }
-
 .btn-secondary {
     background: #1b1b1b;
     border: 1px solid var(--accent);
@@ -217,7 +187,6 @@ input, select {
     transform: translateY(-1px);
     box-shadow: 0 0 12px rgba(255,0,0,.35);
 }
-
 .btn-danger {
     background: #b32121;
     color: #fff;
@@ -228,7 +197,6 @@ input, select {
     transform: translateY(-1px);
     box-shadow: 0 0 12px rgba(255,0,0,.45);
 }
-
 /* Safe reset for <button> elements */
 button {
     font-family: inherit;
@@ -236,13 +204,17 @@ button {
     background: none;
     border: none;
 }
-
 @media (max-width: 600px) {
-    body { padding: .5rem; }
-    h1, h2 { font-size: 1.4rem; }
-    .gallery-grid img { height: 280px; }
+    body {
+        padding: .5rem;
+    }
+    h1, h2 {
+        font-size: 1.4rem;
+    }
+    .gallery-grid img {
+        height: 280px;
+    }
 }
-
 .alien-captcha {
     margin-top: 15px;
     padding: 10px 12px;
@@ -252,22 +224,16 @@ button {
     font-size: 0.95rem;
     color: #fff;
 }
-
 .alien-captcha input {
     margin-right: 8px;
     transform: scale(1.2);
     cursor: pointer;
 }
-
 .alien-captcha label:hover {
     color: #ffaaaa;
     cursor: pointer;
 }
-
-/* ────────────────────────────────
-   GALLERY
-──────────────────────────────── */
-
+/* ──────────────────────────────── GALLERY ──────────────────────────────── */
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -277,7 +243,6 @@ button {
     margin-top: 1.5rem;
     justify-items: center;
 }
-
 .gallery-grid li {
     background: var(--bg-card);
     border: 1px solid #222;
@@ -287,12 +252,10 @@ button {
     box-shadow: 0 0 10px rgba(255, 0, 0, 0.05);
     transition: transform 0.2s ease, box-shadow 0.3s ease;
 }
-
 .gallery-grid li:hover {
     transform: translateY(-3px);
     box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
 }
-
 .gallery-grid img {
     width: 100%;
     height: 350px;
@@ -303,12 +266,10 @@ button {
     transition: transform .3s ease, box-shadow .3s ease;
     cursor: pointer;
 }
-
 .gallery-grid img:hover {
     transform: scale(1.03);
     box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
 }
-
 .gallery-grid strong {
     display: block;
     margin-bottom: 0.5rem;
@@ -316,11 +277,9 @@ button {
     font-size: 1rem;
     text-transform: capitalize;
 }
-
 .gallery-grid a.btn {
     margin-top: 0.6rem;
 }
-
 /* Section headers */
 h3 {
     margin-top: 2rem;
@@ -329,28 +288,26 @@ h3 {
     padding-bottom: 0.4rem;
     color: var(--text-main);
 }
-
 /* Hidden gallery styling */
-.hidden-gallery .gallery-grid li { opacity: 0.9; }
-.hidden-gallery .gallery-grid li:hover { opacity: 1; }
-
+.hidden-gallery .gallery-grid li {
+    opacity: 0.9;
+}
+.hidden-gallery .gallery-grid li:hover {
+    opacity: 1;
+}
 hr {
     border: none;
     border-top: 1px solid #222;
     margin: 2rem 0;
 }
-
-/* ────────────────────────────────
-   MESSAGES & RESPONSIVE
-──────────────────────────────── */
-
-p.error { color: var(--error); }
-p.success { color: var(--success); }
-
-/* ────────────────────────────────
-   AUTH / DASHBOARD
-──────────────────────────────── */
-
+/* ──────────────────────────────── MESSAGES & RESPONSIVE ──────────────────────────────── */
+p.error {
+    color: var(--error);
+}
+p.success {
+    color: var(--success);
+}
+/* ──────────────────────────────── AUTH / DASHBOARD ──────────────────────────────── */
 .auth-card {
     background: rgba(17, 17, 17, 0.55);
     border: 1px solid rgba(255, 255, 255, 0.12);
@@ -362,17 +319,13 @@ p.success { color: var(--success); }
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
 }
-
-.auth-card form input,
-.auth-card form button {
+.auth-card form input, .auth-card form button {
     margin-top: 10px;
 }
-
 .auth-links a {
     display: block;
     margin-top: 8px;
 }
-
 .dashboard-card {
     background: var(--bg-card);
     border: 1px solid #222;
@@ -380,20 +333,21 @@ p.success { color: var(--success); }
     border-radius: 10px;
     text-align: center;
 }
-
 .subtitle {
     color: var(--text-muted);
     margin-bottom: 2rem;
 }
-
 .dash-actions {
     display: flex;
     flex-direction: column;
     gap: 1rem;
 }
-
-.welcome-card { padding: 3rem 0; }
-.welcome-card h1 { margin-bottom: 1rem; }
+.welcome-card {
+    padding: 3rem 0;
+}
+.welcome-card h1 {
+    margin-bottom: 1rem;
+}
 .welcome-text {
     margin-bottom: 1.8rem;
     color: var(--text-muted);
@@ -403,7 +357,6 @@ p.success { color: var(--success); }
     justify-content: center;
     gap: 1rem;
 }
-
 /* ✅ Semi-transparent overlay for welcome card */
 .welcome-overlay {
     background: rgba(0, 0, 0, 0.55);
@@ -413,7 +366,6 @@ p.success { color: var(--success); }
     border-radius: 12px;
     display: inline-block;
 }
-
 /* Fix horizontal buttons on welcome page */
 .welcome-card .button-row .btn {
     width: auto !important;
@@ -421,11 +373,7 @@ p.success { color: var(--success); }
     padding-left: 1.5rem;
     padding-right: 1.5rem;
 }
-
-/* ────────────────────────────────
-   NEWS CARDS
-──────────────────────────────── */
-
+/* ──────────────────────────────── NEWS CARDS ──────────────────────────────── */
 .news-card {
     background: var(--bg-card);
     border: 1px solid #222;
@@ -433,13 +381,14 @@ p.success { color: var(--success); }
     padding: 1rem;
     text-align: left;
     transition: 0.25s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
-
 .news-card:hover {
     box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
     transform: scale(1.02);
 }
-
 .news-card img {
     width: 100%;
     height: 180px;
@@ -447,25 +396,20 @@ p.success { color: var(--success); }
     border-radius: 6px;
     margin-bottom: 10px;
 }
-
 .news-card h3 {
     font-size: 1.1rem;
     color: var(--text-main);
     margin-bottom: 6px;
 }
-
 .news-date {
     color: var(--text-muted);
     font-size: 0.85rem;
     margin-bottom: 10px;
 }
-
-form[action*="news.php"] input,
-form[action*="news.php"] select {
+form[action*="news.php"] input, form[action*="news.php"] select {
     margin-bottom: 0;
     text-align: center;
 }
-
 form[action*="news.php"] {
     background: #111;
     border: 1px solid #222;
@@ -473,11 +417,7 @@ form[action*="news.php"] {
     border-radius: 8px;
     text-align: center;
 }
-
-/* ────────────────────────────────
-   LIGHTBOX (Image Popup)
-──────────────────────────────── */
-
+/* ──────────────────────────────── LIGHTBOX (Image Popup) ──────────────────────────────── */
 .lightbox {
     display: none;
     position: fixed;
@@ -490,7 +430,6 @@ form[action*="news.php"] {
     cursor: default;
     animation: fadeIn 0.25s ease;
 }
-
 .lightbox img {
     max-width: 95%;
     max-height: 90vh;
@@ -500,16 +439,11 @@ form[action*="news.php"] {
     transition: transform 0.25s ease;
     cursor: zoom-in;
 }
-
 .lightbox img.zoomed {
     cursor: zoom-out;
     transform: scale(1.6);
 }
-
-/* ────────────────────────────────
-   CUSTOM FILE UPLOAD
-──────────────────────────────── */
-
+/* ──────────────────────────────── CUSTOM FILE UPLOAD ──────────────────────────────── */
 .file-upload {
     display: flex;
     flex-direction: column;
@@ -518,9 +452,9 @@ form[action*="news.php"] {
     margin-bottom: 1.5rem;
     text-align: center;
 }
-
-.file-upload input[type="file"] { display: none; }
-
+.file-upload input[type="file"] {
+    display: none;
+}
 .file-upload label {
     background: var(--accent);
     color: #111;
@@ -539,17 +473,14 @@ form[action*="news.php"] {
     transform: translateZ(0);
     backface-visibility: hidden;
 }
-
 .file-upload label:hover {
     background: var(--accent-soft);
     box-shadow: 0 0 12px rgba(255,0,0,.55);
 }
-
 .small-btn {
     padding: 0.45rem 1rem;
     font-size: 0.9rem;
 }
-
 #file-name {
     color: var(--text-muted);
     font-size: 0.85rem;
@@ -560,15 +491,10 @@ form[action*="news.php"] {
     opacity: 1;
     color: var(--accent-soft);
 }
-
-/* ────────────────────────────────
-   SOLAR SYSTEM LANDING
-──────────────────────────────── */
-
+/* ──────────────────────────────── SOLAR SYSTEM LANDING ──────────────────────────────── */
 body.solar-page .top-home-wrapper {
     display: none;
 }
-
 /* REMOVE normal page container styles */
 body.solar-page .container {
     max-width: none;
@@ -583,23 +509,18 @@ body.solar-page .container {
     justify-content: center;
     align-items: flex-start;
 }
-
 /* Main stack */
 .solar-landing {
     width: 100%;
     min-height: 100vh;
-
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-
     gap: 2rem;
     padding-top: 2rem;
-
     overflow: visible;
 }
-
 /* Wrap around solar system to enable scaling */
 .solar-visual-wrapper {
     width: 100%;
@@ -608,31 +529,23 @@ body.solar-page .container {
     align-items: flex-start;
     overflow: visible;
 }
-
 /* MAIN VISUAL */
 .solar-visual {
     position: relative;
     width: 1000px;
     height: 1000px;
-
     max-width: 100%;
     max-height: 100%;
     overflow: visible;
-
     transform-origin: center top !important;
 }
-
 @media (max-width: 650px) {
     .solar-visual {
         width: 420px;
         height: 420px;
     }
 }
-
-/* ───────────────────────────────
-   BASE OBJECTS
-──────────────────────────────── */
-
+/* ─────────────────────────────── BASE OBJECTS ──────────────────────────────── */
 .planet-orbit {
     position: absolute;
     top: 50%;
@@ -642,7 +555,6 @@ body.solar-page .container {
     animation: orbit-spin linear infinite;
     pointer-events: none;
 }
-
 .orbit-circle {
     position: absolute;
     width: 100%;
@@ -651,7 +563,6 @@ body.solar-page .container {
     border: 1px solid rgba(255, 255, 255, .10);
     pointer-events: none;
 }
-
 .planet {
     position: absolute;
     top: 50%;
@@ -664,7 +575,6 @@ body.solar-page .container {
     pointer-events: auto;
     box-shadow: 0 0 6px rgba(255, 255, 255, .8);
 }
-
 /* Sun */
 .sun {
     position: absolute;
@@ -679,13 +589,11 @@ body.solar-page .container {
     background: radial-gradient(circle, #ffd15c 0%, #ff9100 50%, #b33b00 80%);
     box-shadow: 0 0 55px rgba(255, 150, 0, .9);
 }
-
 /* Pause during hover */
 .solar-visual.solar-paused .planet-orbit,
 .solar-visual.solar-paused .moon-orbit {
     animation-play-state: paused !important;
 }
-
 /* Floating tooltip that follows cursor */
 #cursor-tooltip {
     position: fixed;
@@ -702,20 +610,14 @@ body.solar-page .container {
     z-index: 999999;
     text-align: left;
 }
-
 #cursor-tooltip ul {
     padding-left: 18px;
     margin: 6px 0 0 0;
 }
-
 #cursor-tooltip li {
     margin-bottom: 4px;
 }
-
-/* ───────────────────────────────
-   MOONS
-──────────────────────────────── */
-
+/* ─────────────────────────────── MOONS ──────────────────────────────── */
 .moon-orbit {
     position: absolute;
     top: 50%;
@@ -726,7 +628,6 @@ body.solar-page .container {
     animation: moon-spin linear infinite;
     pointer-events: none;
 }
-
 .moon {
     position: absolute;
     top: 50%;
@@ -739,28 +640,55 @@ body.solar-page .container {
     cursor: pointer;
     pointer-events: auto;
 }
-
-/* ───────────────────────────────
-   PLANET ORBIT SIZES + COLORS
-──────────────────────────────── */
-
-.mercury { width: 150px; height: 150px; animation-duration: 6s; }
-.mercury .planet { background: #d0d0d0; }
-
-.venus { width: 190px; height: 190px; animation-duration: 9s; }
-.venus .planet { background: #ffd58f; }
-
-.earth { width: 240px; height: 240px; animation-duration: 13s; }
-.earth .planet { background: #4ea0ff; }
-
-.mars { width: 340px; height: 350px; animation-duration: 17s; }
-.mars .planet { background: #ff6b3b; }
-
-.jupiter { width: 480px; height: 480px; animation-duration: 24s; }
-.jupiter .planet { background: #eec799; }
-
-.saturn { width: 665px; height: 665px; animation-duration: 32s; }
-.saturn .planet { background: #f3d28b; }
+/* ─────────────────────────────── PLANET ORBIT SIZES + COLORS ──────────────────────────────── */
+.mercury {
+    width: 150px;
+    height: 150px;
+    animation-duration: 6s;
+}
+.mercury .planet {
+    background: #d0d0d0;
+}
+.venus {
+    width: 190px;
+    height: 190px;
+    animation-duration: 9s;
+}
+.venus .planet {
+    background: #ffd58f;
+}
+.earth {
+    width: 240px;
+    height: 240px;
+    animation-duration: 13s;
+}
+.earth .planet {
+    background: #4ea0ff;
+}
+.mars {
+    width: 340px;
+    height: 350px;
+    animation-duration: 17s;
+}
+.mars .planet {
+    background: #ff6b3b;
+}
+.jupiter {
+    width: 480px;
+    height: 480px;
+    animation-duration: 24s;
+}
+.jupiter .planet {
+    background: #eec799;
+}
+.saturn {
+    width: 665px;
+    height: 665px;
+    animation-duration: 32s;
+}
+.saturn .planet {
+    background: #f3d28b;
+}
 .saturn .saturn-ring {
     position: absolute;
     top: 50%;
@@ -771,47 +699,111 @@ body.solar-page .container {
     border-radius: 50%;
     border: 1px solid rgba(255,255,255,.4);
 }
-
-.uranus { width: 850px; height: 850px; animation-duration: 38s; }
-.uranus .planet { background: #7fd4ff; }
-
-.neptune { width: 980px; height: 980px; animation-duration: 45s; }
-.neptune .planet { background: #4c7dff; }
-
+.uranus {
+    width: 850px;
+    height: 850px;
+    animation-duration: 38s;
+}
+.uranus .planet {
+    background: #7fd4ff;
+}
+.neptune {
+    width: 980px;
+    height: 980px;
+    animation-duration: 45s;
+}
+.neptune .planet {
+    background: #4c7dff;
+}
 /* Moons orbit size */
-.moon-orbit-earth { width: 40px; height: 40px; animation-duration: 2.2s; }
-
-.moon-orbit-mars-1 { width: 45px; height: 45px; animation-duration: 2.4s; }
-.moon-orbit-mars-2 { width: 55px; height: 55px; animation-duration: 3.1s; }
-
-.moon-orbit-j-1 { width: 55px; height: 55px; animation-duration: 1.8s; }
-.moon-orbit-j-2 { width: 65px; height: 65px; animation-duration: 2.4s; }
-.moon-orbit-j-3 { width: 75px; height: 75px; animation-duration: 3s; }
-.moon-orbit-j-4 { width: 85px; height: 85px; animation-duration: 3.6s; }
-
-.moon-orbit-s-1 { width: 60px; height: 60px; animation-duration: 3s; }
-.moon-orbit-s-2 { width: 70px; height: 70px; animation-duration: 3.8s; }
-.moon-orbit-s-3 { width: 80px; height: 80px; animation-duration: 4.6s; }
-.moon-orbit-s-4 { width: 90px; height: 90px; animation-duration: 5.4s; }
-.moon-orbit-s-5 { width: 105px; height: 105px; animation-duration: 6.2s; }
-
-.moon-orbit-u-1 { width: 60px; height: 60px; animation-duration: 2.8s; }
-.moon-orbit-u-2 { width: 72px; height: 72px; animation-duration: 3.6s; }
-
-.moon-orbit-n-1 { width: 60px; height: 60px; animation-duration: 3.4s; }
-
+.moon-orbit-earth {
+    width: 40px;
+    height: 40px;
+    animation-duration: 2.2s;
+}
+.moon-orbit-mars-1 {
+    width: 45px;
+    height: 45px;
+    animation-duration: 2.4s;
+}
+.moon-orbit-mars-2 {
+    width: 55px;
+    height: 55px;
+    animation-duration: 3.1s;
+}
+.moon-orbit-j-1 {
+    width: 55px;
+    height: 55px;
+    animation-duration: 1.8s;
+}
+.moon-orbit-j-2 {
+    width: 65px;
+    height: 65px;
+    animation-duration: 2.4s;
+}
+.moon-orbit-j-3 {
+    width: 75px;
+    height: 75px;
+    animation-duration: 3s;
+}
+.moon-orbit-j-4 {
+    width: 85px;
+    height: 85px;
+    animation-duration: 3.6s;
+}
+.moon-orbit-s-1 {
+    width: 60px;
+    height: 60px;
+    animation-duration: 3s;
+}
+.moon-orbit-s-2 {
+    width: 70px;
+    height: 70px;
+    animation-duration: 3.8s;
+}
+.moon-orbit-s-3 {
+    width: 80px;
+    height: 80px;
+    animation-duration: 4.6s;
+}
+.moon-orbit-s-4 {
+    width: 90px;
+    height: 90px;
+    animation-duration: 5.4s;
+}
+.moon-orbit-s-5 {
+    width: 105px;
+    height: 105px;
+    animation-duration: 6.2s;
+}
+.moon-orbit-u-1 {
+    width: 60px;
+    height: 60px;
+    animation-duration: 2.8s;
+}
+.moon-orbit-u-2 {
+    width: 72px;
+    height: 72px;
+    animation-duration: 3.6s;
+}
+.moon-orbit-n-1 {
+    width: 60px;
+    height: 60px;
+    animation-duration: 3.4s;
+}
 /* Animations */
 @keyframes orbit-spin {
     from { transform: translate(-50%, -50%) rotate(0deg); }
-    to   { transform: translate(-50%, -50%) rotate(360deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
 }
-
 @keyframes moon-spin {
     from { transform: translate(-50%, -50%) rotate(0deg); }
-    to   { transform: translate(-50%, -50%) rotate(360deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
 }
-
 /* Prevent footer overlap on solar page */
 body.solar-page .solar-landing {
-    padding-bottom: 160px;  /* Adjust as needed */
+    padding-bottom: 160px; /* Adjust as needed */
+}
+.news-page-wrapper {
+    padding-bottom: 140px; /* height of sticky footer space */
 }

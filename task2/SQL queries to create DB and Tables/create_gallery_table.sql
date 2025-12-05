@@ -1,9 +1,0 @@
-CREATE TABLE gallery (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    userId INT NOT NULL,
-    title VARCHAR(255) NOT NULL,
-    filePath MEDIUMTEXT NULL,
-    createdAt DATETIME NOT NULL,
-    status TINYINT NOT NULL,
-    FOREIGN KEY (userId) REFERENCES user(id)
-);
