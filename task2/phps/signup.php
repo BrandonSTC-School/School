@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // --------------------------------------------------
-// If request is GET -> load signup form
+// If request is GET → load signup form
 // --------------------------------------------------
 echo $twig->render('signup.twig');
 ?>

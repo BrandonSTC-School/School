@@ -1,4 +1,8 @@
 ### Added Task2
+03/12/2025 - Added security headers fpr CSP
+### Added Task2
+01/12/2025 - Added news infinite scrolling, limited by filter(1 day, 7days, 30days search), updated commnets.
+### Added Task2
 27/11/2025 - Added Captcha when user logs in or signs up. Removed reduntant Home button while user was logged in
 ### Added Task2
 26/11/2025 - Updated tooltip for solar page, added footer with social media buttons + button logic to behave correctly if user is logged in/out, updated CSS style

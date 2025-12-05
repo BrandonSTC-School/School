@@ -1,32 +1,41 @@
 <?php
-// Load Composer autoloader to include Twig and any other libraries installed via Composer
+/**
+ *  Global Configuration File
+ *  - Loads Twig
+ *  - Defines security headers (CSP)
+ *  - Defines login security constants
+ */
+
+
+// 1) SECURITY HEADERS (Fixes ZAP CSP warnings, test ran on 3/12/2025)
+header("Content-Security-Policy:
+    default-src 'self';
+    img-src 'self' data: https:;
+    style-src 'self' 'unsafe-inline';
+    script-src 'self' 'unsafe-inline';
+    font-src 'self' https:;
+    connect-src 'self' https:;
+    frame-ancestors 'none';
+");
+
+// 2) AUTOLOADER (Twig, Composer packages)
 require_once __DIR__ . '/../vendor/autoload.php';
 
-// -------------------------
-// Twig Template Engine Setup
-// -------------------------
-
-// Tell Twig where your Twig template files are located
+// 3) TWIG TEMPLATE ENGINE SETUP
 $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/../templates');
 
-// Create the Twig environment instance
 $twig = new \Twig\Environment($loader, [
-    'cache' => false, // Disable caching for development (enable in production for speed)
-    'debug' => true   // Enable debug mode (allows using Twig debug features)
+    'cache' => false,  // Disable cache during development
+    'debug' => true    // Enables dump() and debugging tools
 ]);
 
-// -------------------------
-// Security / Login Settings
-// -------------------------
+// 4) LOGIN SECURITY SETTINGS
 
-// Maximum number of allowed failed login attempts before temporary lockout
+// Maximum login attempts allowed before locking account
 define('MAX_LOGIN_ATTEMPTS', 3);
 
-// Duration of the window in which failed login attempts are counted (in seconds)
-// e.g., 300 seconds = 5 minutes
-define('ATTEMPT_WINDOW', 300);
+// Time window in which failed attempts are counted (seconds)
+define('ATTEMPT_WINDOW', 300); // 5 minutes
 
-// Duration of lockout period after too many failed attempts (in seconds)
-// e.g., 900 seconds = 15 minutes
-define('LOCKOUT_DURATION', 900);
-?>
+// Duration of account lock after exceeding attempts
+define('LOCKOUT_DURATION', 900); // 15 minutes
