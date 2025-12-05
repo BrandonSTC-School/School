@@ -1,4 +1,4 @@
-// 🌌 AstroGallery Lightbox with Zoom
+// AstroGallery Lightbox with Zoom
 document.addEventListener("DOMContentLoaded", () => {
     const lightbox = document.createElement("div");
     lightbox.className = "lightbox";
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Zoom toggle
     imgEl.addEventListener("click", (e) => {
-        e.stopPropagation(); // don’t close when clicking the image
+        e.stopPropagation();
         zoomed = !zoomed;
         imgEl.classList.toggle("zoomed", zoomed);
     });

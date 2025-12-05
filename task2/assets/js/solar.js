@@ -8,20 +8,19 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
     }
 
-    // Only elements with actual data — NOT orbits
     const hoverTargets = solar.querySelectorAll('.sun, .planet, .moon');
 
-    // Your original listeners for real hover
+    // Original listeners for real hover
     function runOriginalMouseEnter(item) {
         solar.classList.add('solar-paused');
 
-        const name  = item.dataset.name || "Unknown Object";
-        const size  = item.dataset.size || null;
-        const mass  = item.dataset.mass || null;
-        const age   = item.dataset.age || null;
-        const temp  = item.dataset.temp || null;
-        const wind  = item.dataset.wind || null;
-        const dist  = item.dataset.distance || null;
+        const name = item.dataset.name || "Unknown Object";
+        const size = item.dataset.size || null;
+        const mass = item.dataset.mass || null;
+        const age = item.dataset.age || null;
+        const temp = item.dataset.temp || null;
+        const wind = item.dataset.wind || null;
+        const dist = item.dataset.distance || null;
 
         tooltip.innerHTML = `
             <strong>${name}</strong>
@@ -48,17 +47,14 @@ document.addEventListener('DOMContentLoaded', function () {
         tooltip.style.top  = (e.clientY + 20) + "px";
     }
 
-    // Bind original events (still needed!)
+    // Bind original events
     hoverTargets.forEach(item => {
         item.addEventListener('mouseenter', () => runOriginalMouseEnter(item));
         item.addEventListener('mouseleave', runOriginalMouseLeave);
         item.addEventListener('mousemove', moveTooltip);
     });
 
-    /* ----------------------------------------------------------
-       PROXIMITY HOVER — ONLY ADDING THIS PART
-    ---------------------------------------------------------- */
-
+    // PROXIMITY HOVER
     const PROXIMITY = 50; // px around object
     let active = null;
 
@@ -100,9 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
         moveTooltip(e);
     });
 
-    /* -----------------------------------------
-       SCALE SYSTEM (unchanged)
-    ----------------------------------------- */
+    // SCALE SYSTEM (unchanged)
     function autoScaleSolar() {
         const wrapper = document.querySelector('.solar-visual-wrapper');
         if (!wrapper) return;

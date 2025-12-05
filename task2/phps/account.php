@@ -18,15 +18,15 @@ $user = $stmt->fetch();
 
 // Prepare variables for feedback messages
 $message = '';
-$error   = '';
+$error = '';
 
 // Check if form was submitted (POST request)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Get submitted form values, trim to remove extra spaces
-    $name     = trim($_POST['name']  ?? '');
-    $surname  = trim($_POST['surname'] ?? '');
-    $email    = trim($_POST['eMail'] ?? '');
+    $name = trim($_POST['name']  ?? '');
+    $surname = trim($_POST['surname'] ?? '');
+    $email = trim($_POST['eMail'] ?? '');
     $password = $_POST['password'] ?? ''; // Password may be empty
 
     // Validate required fields (password optional)
@@ -81,16 +81,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             if ($updatedOk) {
-                // ✅ Keep the session in sync with the database so dashboard shows new info immediately
-                $_SESSION['user_name']    = $name;
+                // Keep the session in sync with the database so dashboard shows new info immediately
+                $_SESSION['user_name'] = $name;
                 $_SESSION['user_surname'] = $surname;
-                $_SESSION['user_email']   = $email;
+                $_SESSION['user_email'] = $email;
 
                 // Update $user array so new data is shown in the form immediately
                 $user = [
-                    'name'    => $name,
+                    'name' => $name,
                     'surname' => $surname,
-                    'eMail'   => $email
+                    'eMail' => $email
                 ];
             }
         }
@@ -99,8 +99,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // Render Twig template and pass variables to it
 echo $twig->render('account.twig', [
-    'user'    => $user,     // Current user data
-    'success' => $message,  // Success message if any
-    'error'   => $error     // Error message if any
+    'user'    => $user, // Current user data
+    'success' => $message, // Success message if any
+    'error'   => $error // Error message if any
 ]);
 ?>

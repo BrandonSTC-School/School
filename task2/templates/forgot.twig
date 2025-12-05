@@ -9,14 +9,12 @@
     {% if success %}<p class="success">{{ success }}</p>{% endif %}
 
     <form action="forgot.php" method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
         <input type="hidden" name="step" value="verify">
-
         <input type="email" name="eMail" placeholder="Your Email" required>
         <input type="password" name="secret_answer" placeholder="Answer to secret question" required>
-
         <button type="submit" class="btn btn-primary">Verify</button>
     </form>
-
     <div class="auth-links">
         <a href="/task2/phps/login.php" class="btn btn-secondary">Back to Login</a>
     </div>

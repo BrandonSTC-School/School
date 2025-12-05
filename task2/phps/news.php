@@ -8,26 +8,22 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-// ------------------------------
-// Filters (camelCase)
-// ------------------------------
+// Filters
 $publisher = $_GET['publisher'] ?? '';
-$period    = $_GET['period'] ?? 'week';
-$search    = trim($_GET['search'] ?? '');
-$limit     = 12;
+$period = $_GET['period'] ?? 'week';
+$search = trim($_GET['search'] ?? '');
+$limit = 12;
 
 // Determine date window
 $days = match ($period) {
-    'day'   => 1,
-    'week'  => 7,
+    'day' => 1,
+    'week' => 7,
     'month' => 30,
     default => 7
 };
 $fromDate = date('Y-m-d', strtotime("-$days days"));
 
-// ------------------------------
 // Fetch Spaceflight News API
-// ------------------------------
 $apiUrl = "https://api.spaceflightnewsapi.net/v4/articles/?limit=100&ordering=-published_at";
 
 if ($search !== '') {
@@ -46,33 +42,28 @@ if ($sfResponse) {
     if (isset($json['results'])) {
         foreach ($json['results'] as $item) {
             $sfArticles[] = [
-                'title'       => $item['title'],
-                'summary'     => $item['summary'],
-                'url'         => $item['url'],
-                'imageUrl'    => $item['image_url'],
+                'title' => $item['title'],
+                'summary' => $item['summary'],
+                'url' => $item['url'],
+                'imageUrl' => $item['image_url'],
                 'publishedAt' => $item['published_at'],
-                'source'      => $item['news_site'] ?? 'Spaceflight News'
+                'source' => $item['news_site'] ?? 'Spaceflight News'
             ];
         }
     }
 }
 
-// ------------------------------
 // Fetch RSS Feeds
-// ------------------------------
 $nasaArticles = fetchRssFeed("https://www.nasa.gov/rss/dyn/breaking_news.rss", "NASA");
-$esaArticles  = fetchRssFeed("https://www.esa.int/rssfeed/Our_Activities", "ESA");
+$esaArticles = fetchRssFeed("https://www.esa.int/rssfeed/Our_Activities", "ESA");
 
-// ------------------------------
 // Merge + filter + sort
-// ------------------------------
 $allArticles = array_merge($sfArticles, $nasaArticles, $esaArticles);
 
 // Search filter
 if ($search !== '') {
     $allArticles = array_filter($allArticles, function ($a) use ($search) {
-        return stripos($a['title'], $search) !== false ||
-               stripos($a['summary'], $search) !== false;
+        return stripos($a['title'], $search) !== false || stripos($a['summary'], $search) !== false;
     });
 }
 
@@ -92,10 +83,10 @@ $initialArticles = array_slice($allArticles, 0, $limit);
 // Render Twig
 echo $twig->render('news.twig', [
     'articles' => $initialArticles,
-    'filters'  => [
+    'filters' => [
         'publisher' => $publisher,
-        'period'    => $period,
-        'search'    => $search
+        'period' => $period,
+        'search' => $search
     ],
     'total' => count($allArticles)
 ]);

@@ -10,18 +10,14 @@ if (!isset($_SESSION['user_id'])) {
 
 $userId = $_SESSION['user_id'];
 
-// ----------------------------------------------
 // Retrieve PRG success message (if any)
-// ----------------------------------------------
 $message = "";
 if (isset($_SESSION['success_message'])) {
     $message = $_SESSION['success_message'];
     unset($_SESSION['success_message']);
 }
 
-// ----------------------------------------------
-// ✅ Restore image (set status = 1)
-// ----------------------------------------------
+// Restore image (set status = 1)
 if (isset($_GET['restore'])) {
     $imgId = (int) $_GET['restore'];
 
@@ -33,16 +29,14 @@ if (isset($_GET['restore'])) {
     exit;
 }
 
-// ----------------------------------------------
-// ✅ Search & Sort functionality
-// ----------------------------------------------
+// Search & Sort functionality
 $search = trim($_GET['search'] ?? '');
-$sort   = $_GET['sort'] ?? 'newest';
+$sort = $_GET['sort'] ?? 'newest';
 
 $orderBy = "createdAt DESC"; // newest first by default
-if ($sort === "oldest")      $orderBy = "createdAt ASC";
-if ($sort === "title_asc")   $orderBy = "title ASC";
-if ($sort === "title_desc")  $orderBy = "title DESC";
+if ($sort === "oldest") $orderBy = "createdAt ASC";
+if ($sort === "title_asc") $orderBy = "title ASC";
+if ($sort === "title_desc") $orderBy = "title DESC";
 
 // Base query: only hidden images for logged-in user
 $query = "
@@ -65,13 +59,11 @@ $stmt = $pdo->prepare($query);
 $stmt->execute($params);
 $hiddenImages = $stmt->fetchAll();
 
-// ----------------------------------------------
-// ✅ Render template
-// ----------------------------------------------
+// Render template
 echo $twig->render('galleryHidden.twig', [
-    'images'  => $hiddenImages,
+    'images' => $hiddenImages,
     'success' => $message,
-    'search'  => $search,
-    'sort'    => $sort
+    'search' => $search,
+    'sort' => $sort
 ]);
 ?>
