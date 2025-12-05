@@ -1,4 +1,4 @@
-/* ──────────────────────────────── 🌌 ASTROGALLERY MAIN STYLESHEET ──────────────────────────────── */
+/* ──────────────────────────────── ASTROGALLERY MAIN STYLESHEET ──────────────────────────────── */
 /* RESET & THEME VARIABLES */
 * {
     margin: 0;
@@ -24,7 +24,7 @@ body {
     padding: 1rem;
     text-align: center;
 }
-/* ✅ Background images */
+/* Background images */
 body.welcome-page {
     background: url('/task2/assets/images/welcomeBG.webp') no-repeat center center fixed;
     background-size: cover;
@@ -357,7 +357,7 @@ p.success {
     justify-content: center;
     gap: 1rem;
 }
-/* ✅ Semi-transparent overlay for welcome card */
+/* Semi-transparent overlay for welcome card */
 .welcome-overlay {
     background: rgba(0, 0, 0, 0.55);
     backdrop-filter: blur(2px);
@@ -800,10 +800,9 @@ body.solar-page .container {
     from { transform: translate(-50%, -50%) rotate(0deg); }
     to { transform: translate(-50%, -50%) rotate(360deg); }
 }
-/* Prevent footer overlap on solar page */
 body.solar-page .solar-landing {
-    padding-bottom: 160px; /* Adjust as needed */
+    padding-bottom: 160px;
 }
 .news-page-wrapper {
-    padding-bottom: 140px; /* height of sticky footer space */
+    padding-bottom: 140px;
 }

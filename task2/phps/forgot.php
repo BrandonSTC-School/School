@@ -5,24 +5,26 @@ require_once 'session.php';
 // Load PDO database connection
 require_once 'dbConnection.php';
 
-/*
-Flow of this script:
-
-1) User opens page (GET) → show forgot.twig form: email + secret answer
-2) POST with step=verify → check email + secret answer
-    - If valid → store reset_user_id in session → show reset.twig (new password form)
-3) POST with step=reset → validate new password → update DB → show success
-*/
+// Always generate CSRF token for GET form rendering
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    generateCsrfToken();
+}
 
 // Check if form submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+    // CSRF validation
+    if (!validateCsrfToken($_POST['csrf_token'] ?? '')) {
+        echo $twig->render('forgot.twig', [
+            'error' => 'Security validation failed. Please try again.'
+        ]);
+        exit;
+    }
+
     // Determine step in recovery flow (verify or reset)
     $step = $_POST['step'] ?? 'verify';
 
-    // -----------------------------------
     // STEP 1: Verify email + secret answer
-    // -----------------------------------
     if ($step === 'verify') {
 
         // Get submitted email and secret answer
@@ -58,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
 
-        // ✅ Correct answer — store user id in session to allow password reset
+        // Correct answer — store user id in session to allow password reset
         $_SESSION['reset_user_id'] = $user['id'];
 
         // Show password reset form
@@ -66,9 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // -----------------------------------
     // STEP 2: Reset password form submission
-    // -----------------------------------
     if ($step === 'reset') {
 
         // Ensure we have a valid session reset token
@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Get new password fields
         $newPassword = $_POST['new_password'] ?? '';
-        $confirm     = $_POST['confirm_password'] ?? '';
+        $confirm = $_POST['confirm_password'] ?? '';
 
         // Validate both fields filled
         if (empty($newPassword) || empty($confirm)) {
@@ -127,8 +127,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// -----------------------------------
 // Initial GET request → show email + secret answer form
-// -----------------------------------
 echo $twig->render('forgot.twig');
 ?>

@@ -2,16 +2,16 @@
 require_once 'fetchRss.php';
 
 $offset = intval($_GET['offset'] ?? 0);
-$limit  = 12;
+$limit = 12;
 
 $publisher = $_GET['publisher'] ?? '';
-$period    = $_GET['period'] ?? 'week';
-$search    = trim($_GET['search'] ?? '');
+$period = $_GET['period'] ?? 'week';
+$search = trim($_GET['search'] ?? '');
 
 // Determine date range
 $days = match ($period) {
-    'day'   => 1,
-    'week'  => 7,
+    'day' => 1,
+    'week' => 7,
     'month' => 30,
     default => 7
 };
@@ -24,18 +24,18 @@ $sfItems = $sfJson ? json_decode($sfJson, true)['results'] : [];
 $sfArticles = [];
 foreach ($sfItems as $item) {
     $sfArticles[] = [
-        'title'       => $item['title'],
-        'summary'     => $item['summary'],
-        'url'         => $item['url'],
-        'imageUrl'    => $item['image_url'],
+        'title' => $item['title'],
+        'summary' => $item['summary'],
+        'url'  => $item['url'],
+        'imageUrl' => $item['image_url'],
         'publishedAt' => $item['published_at'],
-        'source'      => $item['news_site']
+        'source' => $item['news_site']
     ];
 }
 
 // Fetch RSS feeds
 $nasaArticles = fetchRssFeed("https://www.nasa.gov/rss/dyn/breaking_news.rss", "NASA");
-$esaArticles  = fetchRssFeed("https://www.esa.int/rssfeed/Our_Activities", "ESA");
+$esaArticles = fetchRssFeed("https://www.esa.int/rssfeed/Our_Activities", "ESA");
 
 $allArticles = array_merge($sfArticles, $nasaArticles, $esaArticles);
 

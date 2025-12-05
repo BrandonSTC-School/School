@@ -1,4 +1,6 @@
 ### Added Task2
+04/12/2025 - Fixed Medium and low ZAP alerts for, wildcard dericitive, Cross Site Scripting, and some leaks.
+### Added Task2
 03/12/2025 - Added security headers fpr CSP
 ### Added Task2
 01/12/2025 - Added news infinite scrolling, limited by filter(1 day, 7days, 30days search), updated commnets.

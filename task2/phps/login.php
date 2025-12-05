@@ -12,10 +12,16 @@ if (isset($_GET['registered'])) {
     $successMessage = 'Registration successful. You can now log in.';
 }
 
-// ----------------------------------------------------
 // Handle form submission (when login POST request sent)
-// ----------------------------------------------------
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    // CSRF validation
+    if (!validateCsrfToken($_POST['csrf_token'] ?? '')) {
+        echo $twig->render('login.twig', [
+            'error' => 'Security validation failed. Please try again.'
+        ]);
+        exit;
+    }
 
     // Backend captcha validation
     if (empty($_POST['not_alien'])) {
@@ -46,9 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // ----------------------------------------------------
     // Check if account is currently locked due to failures
-    // ----------------------------------------------------
     if (!empty($user['locked_until']) && strtotime($user['locked_until']) > time()) {
         // Calculate how many minutes remain in lockout
         $remaining = ceil((strtotime($user['locked_until']) - time()) / 60);
@@ -59,9 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // ----------------------------------------------------
     // Verify entered password against hashed password
-    // ----------------------------------------------------
     if (!password_verify($password, $user['password'])) {
 
         // Get current timestamp
@@ -104,9 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // ----------------------------------------------------
     // Successful login: reset lockout counters
-    // ----------------------------------------------------
     $update = $pdo->prepare("
         UPDATE user SET failed_attempts = 0, last_failed = NULL, locked_until = NULL
         WHERE id = ?
@@ -123,9 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 
-// ----------------------------------------------------
 // Initial page load (no POST)
-// Show login form, optionally with registration success message
-// ----------------------------------------------------
+// Show login form
 echo $twig->render('login.twig', ['success' => $successMessage]);
 ?>

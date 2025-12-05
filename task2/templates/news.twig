@@ -5,9 +5,8 @@
 
 <h2>🪐 Space & Astronomy News</h2>
 
-<div class="news-page-wrapper">   {# ← ADDED WRAPPER #}
+<div class="news-page-wrapper">
 
-    {# FILTERS #}
     <form method="GET" id="news-filters" action="news.php" style="margin-bottom: 2rem;">
         <div style="display:grid; grid-template-columns:1fr 1fr 1fr 0.5fr; gap:0.8rem;">
             <input type="text" name="search" placeholder="Search..." value="{{ filters.search }}">
@@ -29,19 +28,17 @@
         </div>
     </form>
 
-    {# ARTICLES GRID #}
     <div id="news-container" class="gallery-grid">
         {% for article in articles %}
             {% include 'partials/newsCard.twig' with { article: article } %}
         {% endfor %}
     </div>
 
-    {# LOADER ABOVE FOOTER #}
     <div id="loader" style="text-align:center; margin:25px 0 40px 0; display:none;">
         <span style="color:#ff3b3b;">Loading more...</span>
     </div>
 
-</div>  {# END WRAPPER #}
+</div>
 
 <script src="/task2/assets/js/news.js"></script>
 

@@ -1,7 +1,5 @@
-// 🌠 main.js — General UI enhancements for AstroGallery
-
 document.addEventListener("DOMContentLoaded", () => {
-    // 🪐 File upload label + name update
+    // File upload label + name update
     const fileInput = document.getElementById("image");
     const fileName = document.getElementById("file-name");
 
@@ -12,7 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Optional: smooth fade-in for all gallery images
     const imgs = document.querySelectorAll(".gallery-grid img");
     imgs.forEach((img) => {
         img.style.opacity = 0;

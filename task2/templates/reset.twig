@@ -9,11 +9,10 @@
     {% if success %}<p class="success">{{ success }}</p>{% endif %}
 
     <form method="POST" action="/task2/phps/forgot.php">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
         <input type="hidden" name="step" value="reset">
-
         <input type="password" name="new_password" placeholder="New Password" required>
         <input type="password" name="confirm_password" placeholder="Confirm Password" required>
-
         <button type="submit" class="btn btn-primary">Reset Password</button>
     </form>
 
